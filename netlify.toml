@@ -23,6 +23,13 @@
   NEXT_PUBLIC_SANITY_API_VERSION = "2026-11-02"
   # Cal.com booking slug (non-secret).
   NEXT_PUBLIC_CAL_LINK = "paris-papakostas-e5fgm9"
+  # These keys are NOT secrets: NEXT_PUBLIC_* vars are inlined into the client
+  # bundle by design, the project id appears in CDN image URLs, and the dataset
+  # name / api version / booking slug are plain config. Their values naturally
+  # occur in committed files (this file, src/sanity/env.ts, scripts/, docs),
+  # which trips Netlify's secrets scanner. Exempt them so the build passes.
+  # (Real secrets — the Sanity tokens — are NOT listed here and stay scanned.)
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SANITY_PROJECT_ID,NEXT_PUBLIC_SANITY_DATASET,NEXT_PUBLIC_SANITY_API_VERSION,NEXT_PUBLIC_CAL_LINK,SANITY_MIGRATION_DATASET"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
