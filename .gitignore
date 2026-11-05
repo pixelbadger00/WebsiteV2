@@ -1,0 +1,52 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# legacy WordPress FTP download (never commit)
+/legacy
+
+# env files (keep .env.example)
+.env
+.env.*
+!.env.example
+
+# sanity
+/dist
+
+# misc
+.DS_Store
+*.pem
+/coverage
+
+# debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local / editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# agent tooling (re-added by `next dev`; not part of the repo)
+AGENTS.md
+
+# netlify
+.netlify
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# iCloud-safe dev build dir (see next.config.ts)
+.next.nosync/

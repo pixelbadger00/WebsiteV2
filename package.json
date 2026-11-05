@@ -1,0 +1,61 @@
+{
+  "name": "drparispapakostas",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build --webpack",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "migrate:dry": "tsx scripts/migrate-wp.ts",
+    "migrate": "node --env-file=.env.local --import tsx scripts/migrate-wp.ts",
+    "seed:home": "node --env-file=.env.local --import tsx scripts/seed-home.ts",
+    "seed:legal": "node --env-file=.env.local --import tsx scripts/seed-legal.ts",
+    "fill:en": "node --env-file=.env.local --import tsx scripts/fill-en.ts",
+    "assign:photos": "node --env-file=.env.local --import tsx scripts/assign-photos.ts",
+    "fix:proc-title": "node --env-file=.env.local --import tsx scripts/fix-procedures-title.ts",
+    "enable:testimonials": "node --env-file=.env.local --import tsx scripts/enable-testimonials.ts",
+    "polish:home-copy": "node --env-file=.env.local --import tsx scripts/polish-home-copy.ts",
+    "fix:timeline": "node --env-file=.env.local --import tsx scripts/fix-timeline.ts",
+    "set:short-bio": "node --env-file=.env.local --import tsx scripts/set-short-bio.ts",
+    "fill:treatment": "node --env-file=.env.local --import tsx scripts/fill-treatment-content.ts",
+    "set:hero-title": "node --env-file=.env.local --import tsx scripts/set-hero-title.ts",
+    "set:doctor-portrait": "node --env-file=.env.local --import tsx scripts/set-doctor-portrait.ts",
+    "check:redirects": "node --import tsx scripts/check-redirects.ts"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
+    "@portabletext/react": "^8.0.1",
+    "@sanity/image-url": "^2.1.1",
+    "@sanity/vision": "^6.21.0",
+    "motion": "^14.9.0",
+    "next": "^16.4.4",
+    "next-intl": "^4.14.9",
+    "next-sanity": "^13.4.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sanity": "^6.21.0",
+    "styled-components": "^6.6.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.7",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.4",
+    "fast-xml-parser": "^5.11.2",
+    "node-html-parser": "^9.0.6",
+    "playwright": "^1.64.1",
+    "sharp": "^0.35.5",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,54 @@
+# 301 redirects from the old WordPress URLs. Source of truth: docs/redirects.csv.
+# Keep this file in sync with that CSV (scripts/check-redirects.ts verifies the
+# targets resolve to a single 200 with no chains).
+
+# Service duplicate slugs → canonical procedure URLs
+/service/septoplasty-2/                                         /service/septoplasty/                                         301
+/service/functional-endoscopic-sinus-surgery-fess-2/            /service/functional-endoscopic-sinus-surgery-fess/            301
+/service/laser-reduction-of-the-inferior-nasal-turbinates-2/    /service/laser-reduction-of-the-inferior-nasal-turbinates/    301
+/service/navigation-systems-in-functional-endoscopic-sinus-surgery-2/  /service/navigation-systems-in-functional-endoscopic-sinus-surgery/  301
+
+# Blog posts moved from root to /blog/<slug>/ (Greek unprefixed)
+/chronic-sinusitis/                       /blog/chronic-sinusitis/                       301
+/chronic-sinusitis-2/                     /blog/chronic-sinusitis/                       301
+/deviated-nasal-septum/                   /blog/deviated-nasal-septum/                   301
+/deviated-nasal-septum-2/                 /blog/deviated-nasal-septum/                   301
+/inferior-nasal-turbinate-hypertrophy/    /blog/inferior-nasal-turbinate-hypertrophy/    301
+/inferior-nasal-turbinate-hypertrophy-2/  /blog/inferior-nasal-turbinate-hypertrophy/    301
+/rhinoplasty-surgery-techniques/          /blog/rhinoplasty-surgery-techniques/          301
+/rhinoplasty-surgery-techniques-2/        /blog/rhinoplasty-surgery-techniques/          301
+/european-rhinoplasty-masterclass-center/ /blog/european-rhinoplasty-masterclass-center/ 301
+/riniko/                                  /blog/riniko/                                  301
+
+# Removed pages → nearest equivalent
+/before-after-2/            /services/            301
+/team/dr-papakostas/        /about-the-doctor/    301
+/testimonial/6743/          /about-the-doctor/    301
+/testimonial/6744/          /about-the-doctor/    301
+/testimonial/6761/          /about-the-doctor/    301
+
+# English section
+/en/home/                                       /en/                                            301
+/en/services-2/                                 /en/services/                                   301
+/en/service/rhinoplasty-en/                     /en/service/rhinoplasty/                        301
+/en/faq-2/                                      /en/faq/                                        301
+/en/before-after/                               /en/services/                                   301
+/en/posts/                                      /en/blog/                                       301
+
+# English blog posts moved to /en/blog/<slug>/
+/en/chronic-sinusitis/                          /en/blog/chronic-sinusitis/                     301
+/en/deviated-nasal-septum/                      /en/blog/deviated-nasal-septum/                 301
+/en/inferior-nasal-turbinate-hypertrophy/       /en/blog/inferior-nasal-turbinate-hypertrophy/  301
+/en/rhinoplasty-surgery-techniques/             /en/blog/rhinoplasty-surgery-techniques/        301
+/en/european-rhinoplasty-masterclass-center/    /en/blog/european-rhinoplasty-masterclass-center/  301
+/en/european-rhinoplasty-masterclass-center-2/  /en/blog/european-rhinoplasty-masterclass-center/  301
+
+# English doctor page (old professional-profile + testimonial URLs)
+/en/professional-profile/   /en/about-the-doctor/   301
+/en/testimonial/6765/       /en/about-the-doctor/   301
+/en/testimonial/6766/       /en/about-the-doctor/   301
+/en/testimonial/6767/       /en/about-the-doctor/   301
+/en/testimonial/6768/       /en/about-the-doctor/   301
+/en/testimonial/6769/       /en/about-the-doctor/   301
+/en/testimonial/6770/       /en/about-the-doctor/   301
+/en/testimonial/6771/       /en/about-the-doctor/   301

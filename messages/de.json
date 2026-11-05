@@ -1,0 +1,123 @@
+{
+  "Meta": {
+    "siteName": "Paris Papakostas",
+    "tagline": "Rhinoplastik & Nasenchirurgie — Nikosia, Zypern"
+  },
+  "A11y": {
+    "skip": "Zum Inhalt springen",
+    "menu": "Menü",
+    "languageSwitcher": "Sprache ändern"
+  },
+  "Nav": {
+    "procedures": "Eingriffe",
+    "about": "Über den Arzt",
+    "treatment": "Behandlung in Zypern",
+    "blog": "Blog",
+    "faq": "Häufige Fragen",
+    "contact": "Kontakt"
+  },
+  "Cta": {
+    "book": "Beratungstermin buchen",
+    "call": "Anrufen",
+    "whatsapp": "WhatsApp",
+    "learnMore": "Mehr erfahren"
+  },
+  "Carousel": {
+    "prev": "Vorherige Bewertung",
+    "next": "Nächste Bewertung"
+  },
+  "Home": {
+    "newsEyebrow": "Aktuelles",
+    "newsTitle": "Artikel & Neuigkeiten",
+    "credQualification": "Qualifikation",
+    "credTraining": "Ausbildung",
+    "credFocus": "Schwerpunkt",
+    "credClinic": "Praxis",
+    "treatmentTitle": "Ihren Besuch in Nikosia planen",
+    "treatmentBody": "Patientinnen und Patienten kommen aus ganz Zypern, dem Vereinigten Königreich und Deutschland. Beratung und Eingriffe finden in Nikosia statt, auf Griechisch, Englisch oder Deutsch.",
+    "treatmentCta": "Besuch planen"
+  },
+  "About": {
+    "credentials": "Qualifikationen",
+    "memberships": "Mitgliedschaften",
+    "registration": "Arztregistrierung"
+  },
+  "Contact": {
+    "detailsTitle": "Kontakt aufnehmen",
+    "metaDescription": "Kontakt zu Dr Paris Papakostas — HNO, Nasen- und Nebenhöhlenchirurgie in Nikosia, Zypern. Telefon, WhatsApp, E-Mail und Praxisadresse.",
+    "bookTitle": "Beratungstermin buchen",
+    "bookBody": "Wählen Sie einen passenden Zeitpunkt und vereinbaren Sie Ihren ersten Termin online. Jede Behandlung beginnt mit einer persönlichen Beratung, in der Ihre Möglichkeiten, die Erholung und mögliche Risiken ausführlich besprochen werden.",
+    "mapTitle": "Praxis finden",
+    "call": "Anrufen",
+    "whatsapp": "WhatsApp",
+    "email": "E-Mail",
+    "address": "Praxis",
+    "directions": "Route anzeigen",
+    "hours": "Öffnungszeiten"
+  },
+  "Blog": {
+    "readMore": "Artikel lesen",
+    "empty": "Es wurden noch keine Artikel veröffentlicht.",
+    "backToList": "Alle Artikel"
+  },
+  "Treatment": {
+    "proceduresHeading": "Eingriffe",
+    "clinicHeading": "Die Praxis"
+  },
+  "Booking": {
+    "title": "Beratungstermin buchen",
+    "lead": "Wählen Sie einen passenden Termin. Ihre Beratung findet in der Praxis in Zypern statt.",
+    "placeholder": "Die Online-Buchung wird eingerichtet. Kontaktieren Sie in der Zwischenzeit die Praxis, um einen Termin zu vereinbaren.",
+    "note": "Hier werden keine Gesundheitsdaten erfasst — nur das Nötigste für Ihren Termin. Jeder Eingriff erfordert eine persönliche Beratung und birgt Risiken und Erholungszeit."
+  },
+  "Consent": {
+    "title": "Cookie-Einstellungen",
+    "message": "Wir verwenden Cookies für Analyse und Marketing. Akzeptieren oder lehnen Sie nicht notwendige Cookies ab.",
+    "learnMore": "Cookie-Richtlinie",
+    "accept": "Akzeptieren",
+    "reject": "Ablehnen"
+  },
+  "Procedure": {
+    "breadcrumb": "Eingriffe",
+    "indexTitle": "Eingriffe",
+    "indexIntro": "Nasen- und Nebenhöhleneingriffe von Dr. Paris Papakostas in Nikosia, Zypern. Jeder Eingriff erfordert eine persönliche Beratung; jede Operation birgt Risiken und Erholungszeit.",
+    "risksNote": "Vor jedem Eingriff ist eine persönliche Beratung erforderlich. Es handelt sich um eine Operation: Sie birgt Risiken und benötigt Erholungszeit. Die Ergebnisse sind individuell verschieden.",
+    "beforeAfterTitle": "Vorher & nachher",
+    "beforeAfterNote": "Nur mit Einwilligung der Patientin oder des Patienten. Ergebnisse variieren. Jeder Eingriff birgt Risiken.",
+    "before": "Vorher",
+    "after": "Nachher",
+    "faqTitle": "Häufige Fragen",
+    "ctaTitle": "Besprechen Sie den Eingriff mit Dr. Papakostas",
+    "ctaBody": "Vereinbaren Sie einen Termin, auf Griechisch, Englisch oder Deutsch.",
+    "onThisPage": "Auf dieser Seite",
+    "navOverview": "Überblick",
+    "navExpect": "Ablauf",
+    "navFaq": "Häufige Fragen",
+    "expectTitle": "Ablauf",
+    "step1Title": "Beratung",
+    "step1Body": "Jeder Eingriff beginnt mit einer persönlichen Beratung, in der Ihre Möglichkeiten, die Risiken und die Erholung ausführlich erklärt werden.",
+    "step2Title": "Der Eingriff",
+    "step2Body": "Der Eingriff wird in der Praxis in Zypern durchgeführt, abgestimmt auf Ihre Anatomie und Ihre Ziele.",
+    "step3Title": "Erholung und Nachsorge",
+    "step3Body": "Die Erholung wird von klarer Nachsorge und geplanten Kontrollterminen begleitet. Ergebnisse entwickeln sich allmählich und sind individuell verschieden.",
+    "relatedTitle": "Weitere Eingriffe",
+    "viewAll": "Alle Eingriffe"
+  },
+  "Footer": {
+    "clinic": "Praxis",
+    "contact": "Kontakt",
+    "more": "Mehr",
+    "hours": "Öffnungszeiten",
+    "hoursTbc": "wird bestätigt",
+    "inCyprus": "Praxis und Eingriffe befinden sich in Zypern.",
+    "follow": "Folgen",
+    "privacy": "Datenschutz",
+    "cookies": "Cookies",
+    "imprint": "Impressum"
+  },
+  "NotFound": {
+    "title": "Seite nicht gefunden",
+    "body": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+    "home": "Zurück zur Startseite"
+  }
+}

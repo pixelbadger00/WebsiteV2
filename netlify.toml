@@ -1,0 +1,34 @@
+# Netlify configuration.
+# The official Next.js runtime (@netlify/plugin-nextjs) is auto-installed when
+# Netlify detects Next.js; it handles the publish directory, SSR/ISR functions
+# and on-demand revalidation. pnpm is detected from pnpm-lock.yaml.
+# 301 redirects live in public/_redirects (generated from docs/redirects.csv).
+
+[build]
+  command = "pnpm build"
+  # @netlify/plugin-nextjs publishes from the Next output dir. It must NOT be the
+  # repo root (Netlify rejects publish == base dir).
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # Sanity config for the build (public, non-secret — the project id already
+  # appears in CDN image URLs). Content currently lives in the `development`
+  # dataset. The read token is the ONLY secret and must be set in the Netlify UI
+  # (Site configuration → Environment variables) as SANITY_API_READ_TOKEN,
+  # because the development dataset is not anonymously readable. Alternatively,
+  # make the development dataset public in sanity.io/manage and omit the token.
+  NEXT_PUBLIC_SANITY_PROJECT_ID = "tpddmvyx"
+  NEXT_PUBLIC_SANITY_DATASET = "development"
+  NEXT_PUBLIC_SANITY_API_VERSION = "2026-11-02"
+  # Cal.com booking slug (non-secret).
+  NEXT_PUBLIC_CAL_LINK = "paris-papakostas-e5fgm9"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Allow Netlify's Image CDN (/.netlify/images) to fetch and transform the Sanity
+# source image. Used only for the LCP hero so it is served same-origin (removes
+# the cross-origin cost); all other images go straight to the Sanity CDN.
+[images]
+  remote_images = ["https://cdn\\.sanity\\.io/images/tpddmvyx/.*"]

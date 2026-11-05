@@ -1,0 +1,123 @@
+{
+  "Meta": {
+    "siteName": "Dr Paris Papakostas",
+    "tagline": "Rhinoplasty & Nose Surgery — Nicosia, Cyprus"
+  },
+  "A11y": {
+    "skip": "Skip to content",
+    "menu": "Menu",
+    "languageSwitcher": "Change language"
+  },
+  "Nav": {
+    "procedures": "Procedures",
+    "about": "About",
+    "treatment": "Treatment in Cyprus",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
+  "Cta": {
+    "book": "Book a consultation",
+    "call": "Call",
+    "whatsapp": "WhatsApp",
+    "learnMore": "Learn more"
+  },
+  "Carousel": {
+    "prev": "Previous testimonial",
+    "next": "Next testimonial"
+  },
+  "Home": {
+    "newsEyebrow": "Updates",
+    "newsTitle": "Articles & news",
+    "credQualification": "Qualification",
+    "credTraining": "Training",
+    "credFocus": "Focus",
+    "credClinic": "Clinic",
+    "treatmentTitle": "Planning your visit to Nicosia",
+    "treatmentBody": "Patients travel to the clinic from across Cyprus, the United Kingdom and Germany. Consultations and procedures take place in Nicosia, in Greek, English or German.",
+    "treatmentCta": "Plan your visit"
+  },
+  "About": {
+    "credentials": "Credentials",
+    "memberships": "Memberships",
+    "registration": "Medical registration"
+  },
+  "Contact": {
+    "detailsTitle": "Get in touch",
+    "metaDescription": "Contact Dr Paris Papakostas — ENT, nose and sinus surgery in Nicosia, Cyprus. Phone, WhatsApp, email and clinic location.",
+    "bookTitle": "Book a consultation",
+    "bookBody": "Choose a time that suits you and arrange your first appointment online. Every treatment begins with an in-person consultation, where your options, recovery and any risks are discussed in full.",
+    "mapTitle": "Find the clinic",
+    "call": "Call",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "address": "Clinic",
+    "directions": "Get directions",
+    "hours": "Opening hours"
+  },
+  "Blog": {
+    "readMore": "Read article",
+    "empty": "No articles have been published yet.",
+    "backToList": "All articles"
+  },
+  "Treatment": {
+    "proceduresHeading": "Procedures",
+    "clinicHeading": "The clinic"
+  },
+  "Booking": {
+    "title": "Book a consultation",
+    "lead": "Choose a time that suits you. Your consultation takes place at the clinic in Cyprus.",
+    "placeholder": "Online booking is being set up. In the meantime, contact the clinic to arrange your consultation.",
+    "note": "No medical history is collected here — only what we need to arrange your visit. Every procedure requires an in-person consultation and carries risks and recovery time."
+  },
+  "Consent": {
+    "title": "Cookie choices",
+    "message": "We use cookies for analytics and marketing. Accept or reject non-essential cookies.",
+    "learnMore": "Cookie policy",
+    "accept": "Accept",
+    "reject": "Reject"
+  },
+  "Procedure": {
+    "breadcrumb": "Procedures",
+    "indexTitle": "Procedures",
+    "indexIntro": "Nose and sinus procedures by Dr Paris Papakostas in Nicosia, Cyprus. Each requires an in-person consultation; all surgery carries risks and recovery time.",
+    "risksNote": "A consultation is required before any procedure. This is surgery: it carries risks and needs recovery time. Results vary between patients.",
+    "beforeAfterTitle": "Before & after",
+    "beforeAfterNote": "Shown only with patient consent. Results vary. Every procedure carries risks. Not shown on the German site.",
+    "before": "Before",
+    "after": "After",
+    "faqTitle": "Frequently asked questions",
+    "ctaTitle": "Discuss this procedure with Dr Papakostas",
+    "ctaBody": "Book a consultation, in Greek, English or German.",
+    "onThisPage": "On this page",
+    "navOverview": "Overview",
+    "navExpect": "What to expect",
+    "navFaq": "FAQ",
+    "expectTitle": "What to expect",
+    "step1Title": "Consultation",
+    "step1Body": "Every procedure begins with an in-person consultation, where your options, the risks and the recovery are explained in full.",
+    "step2Title": "The procedure",
+    "step2Body": "The procedure is carried out at the clinic in Cyprus, planned around your anatomy and your goals.",
+    "step3Title": "Recovery and follow-up",
+    "step3Body": "You recover with clear aftercare and scheduled follow-up. Results develop gradually and vary between patients.",
+    "relatedTitle": "Other procedures",
+    "viewAll": "All procedures"
+  },
+  "Footer": {
+    "clinic": "Clinic",
+    "contact": "Contact",
+    "more": "More",
+    "hours": "Hours",
+    "hoursTbc": "to be confirmed",
+    "inCyprus": "Clinic and procedures located in Cyprus.",
+    "follow": "Follow",
+    "privacy": "Privacy",
+    "cookies": "Cookies",
+    "imprint": "Imprint"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "body": "The page you’re looking for doesn’t exist or has moved.",
+    "home": "Back to home"
+  }
+}
