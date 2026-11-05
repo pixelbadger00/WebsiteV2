@@ -38,6 +38,13 @@ export async function sanityFetch<T>(
 ): Promise<T> {
   return client.fetch<T>(query, params, {
     perspective: "published",
-    next: { tags, revalidate: false },
+    // Revalidate hourly as a self-healing fallback. `revalidate: false` (cache
+    // forever) is dangerous on Netlify: the Next Data Cache is restored across
+    // builds, so any build that cached an empty result (e.g. an early build
+    // against the empty `production` fallback dataset) keeps replaying those
+    // empties on every later build. A finite TTL lets content recover. Tags are
+    // retained so a Sanity webhook can still call revalidateTag(...) for instant
+    // updates (Phase 3/5).
+    next: { tags, revalidate: 3600 },
   });
 }
