@@ -5,98 +5,123 @@ import type { Locale } from "@/i18n/routing";
 import { pick } from "@/lib/i18n-content";
 import { CONTACT } from "@/lib/config";
 import { fixedPathAlternates, getGermanEnabled } from "@/lib/seo";
-import { getProcedures, getSiteSettings } from "@/sanity/queries";
+import { getPageBySlug, getProcedures, getSiteSettings } from "@/sanity/queries";
 import ImageBox from "@/components/ImageBox";
+import PortableContent from "@/components/PortableContent";
 import BookButton from "@/components/BookButton";
 import Reveal from "@/components/motion/Reveal";
-import RevealImage from "@/components/motion/RevealImage";
+import { Stagger, StaggerItem } from "@/components/motion/Stagger";
 
 type Props = { params: Promise<{ locale: string }> };
+
+// Content comes from the former "treatment-in-cyprus" page (its Sanity doc still
+// uses that slug); it now lives at /services. Nav + breadcrumbs stay "Procedures".
+const CONTENT_SLUG = "treatment-in-cyprus";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale: localeStr } = await params;
   const locale = localeStr as Locale;
-  const t = await getTranslations({ locale, namespace: "Procedure" });
-  const germanEnabled = await getGermanEnabled();
+  const [nav, page, germanEnabled] = await Promise.all([
+    getTranslations({ locale, namespace: "Nav" }),
+    getPageBySlug(CONTENT_SLUG),
+    getGermanEnabled(),
+  ]);
+  const title = pick(page?.seo?.metaTitle, locale) ?? pick(page?.title, locale) ?? nav("treatment");
+  const description = pick(page?.seo?.metaDescription, locale);
   return {
-    title: t("indexTitle"),
-    description: t("indexIntro"),
+    title,
+    ...(description ? { description } : {}),
     alternates: fixedPathAlternates(locale, "/services", germanEnabled),
   };
 }
 
-export default async function ProceduresIndex({ params }: Props) {
+export default async function ServicesPage({ params }: Props) {
   const { locale: localeStr } = await params;
   setRequestLocale(localeStr);
   const locale = localeStr as Locale;
-  const t = await getTranslations("Procedure");
-  const tt = await getTranslations("Treatment");
-  const tc = await getTranslations("Contact");
   const nav = await getTranslations("Nav");
+  const t = await getTranslations("Treatment");
+  const tc = await getTranslations("Contact");
   const cta = await getTranslations("Cta");
-  const [procedures, settings] = await Promise.all([getProcedures(), getSiteSettings()]);
 
+  const [page, procedures, settings] = await Promise.all([
+    getPageBySlug(CONTENT_SLUG),
+    getProcedures(),
+    getSiteSettings(),
+  ]);
+
+  const body = pick(page?.body, locale);
   const address = pick(settings?.address, locale);
   const mapUrl = settings?.mapUrl ?? CONTACT.mapUrl;
   const hours = settings?.openingHours ?? [];
 
   return (
     <>
-      <div className="mx-auto max-w-[1280px] px-6 py-16 md:px-10 md:py-24">
-        <Reveal className="max-w-[62ch]">
-          <p className="eyebrow">{t("breadcrumb")}</p>
-          <h1 className="mt-3 text-[length:var(--text-h1)]">{t("indexTitle")}</h1>
-          <p className="mt-5 text-[length:var(--text-lead)] text-slate-600">{t("indexIntro")}</p>
-        </Reveal>
+      {/* Intro */}
+      <section className="mx-auto max-w-[1200px] px-6 pt-12 md:pt-16">
+        <h1 className="max-w-[18ch] text-[length:var(--text-h1)]">
+          {pick(page?.title, locale) ?? nav("treatment")}
+        </h1>
+        {/* Intro copy only when it exists — no "to be confirmed" on the public site. */}
+        {body ? (
+          <Reveal className="mt-5 max-w-[62ch] text-[1.05rem] text-slate-600">
+            <PortableContent value={body} />
+          </Reveal>
+        ) : null}
+      </section>
 
-        <div className="mt-14 divide-y divide-line md:mt-20">
-          {procedures.map((proc, i) => {
-            const slug = pick(proc.slug, locale)?.current;
-            const flip = i % 2 === 1;
-            const content = (
-              <article className="grid items-center gap-8 py-10 md:grid-cols-2 md:gap-14 md:py-14">
-                <RevealImage
-                  className={`card-zoom relative aspect-[4/3] overflow-hidden rounded-card ${flip ? "md:order-2" : ""}`}
-                >
-                  <ImageBox
-                    image={proc.heroImage}
-                    alt=""
-                    sizes="(max-width: 768px) 100vw, 580px"
-                    className="h-full w-full"
-                    priority={i === 0}
-                  />
-                </RevealImage>
-                <Reveal className={flip ? "md:order-1" : ""}>
-                  <p className="eyebrow">{`0${i + 1}`}</p>
-                  <h2 className="mt-2 font-serif text-[clamp(1.5rem,2.6vw,2rem)] font-semibold">
-                    {pick(proc.name, locale)}
-                  </h2>
-                  {pick(proc.summary, locale) ? (
-                    <p className="mt-4 max-w-[52ch] text-slate-600">{pick(proc.summary, locale)}</p>
-                  ) : null}
+      {/* Procedures offered */}
+      {procedures.length > 0 ? (
+        <section className="mx-auto max-w-[1200px] px-6 py-14 md:py-20">
+          <Reveal>
+            <h2 className="text-[length:var(--text-h2)]">{t("proceduresHeading")}</h2>
+          </Reveal>
+          <Stagger className="mt-8 grid gap-6 md:grid-cols-3">
+            {procedures.map((proc) => {
+              const slug = pick(proc.slug, locale)?.current;
+              const inner = (
+                <>
+                  <div className="card-zoom relative aspect-[4/3] overflow-hidden rounded-t-card">
+                    <ImageBox
+                      image={proc.heroImage}
+                      alt=""
+                      sizes="(max-width: 768px) 100vw, 380px"
+                      className="h-full w-full"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="mb-1.5 font-serif text-[1.25rem] font-semibold">
+                      {pick(proc.name, locale)}
+                    </h3>
+                    {pick(proc.summary, locale) ? (
+                      <p className="text-slate-600">{pick(proc.summary, locale)}</p>
+                    ) : null}
+                  </div>
+                </>
+              );
+              return (
+                <StaggerItem key={proc._id} className="h-full">
                   {slug ? (
-                    <span className="mt-5 inline-block font-semibold text-accent group-hover:text-accent-700">
-                      {cta("learnMore")}
-                    </span>
-                  ) : null}
-                </Reveal>
-              </article>
-            );
-            return slug ? (
-              <Link key={proc._id} href={`/service/${slug}`} className="group block">
-                {content}
-              </Link>
-            ) : (
-              <div key={proc._id}>{content}</div>
-            );
-          })}
-        </div>
-      </div>
+                    <Link
+                      href={`/service/${slug}`}
+                      className="card card-hover group block h-full overflow-hidden"
+                    >
+                      {inner}
+                    </Link>
+                  ) : (
+                    <article className="card block h-full overflow-hidden">{inner}</article>
+                  )}
+                </StaggerItem>
+              );
+            })}
+          </Stagger>
+        </section>
+      ) : null}
 
-      {/* The clinic (merged in from the former Treatment-in-Cyprus page) */}
+      {/* The clinic */}
       <section className="bg-surface">
         <Reveal className="mx-auto max-w-[1200px] px-6 py-14 md:py-20">
-          <h2 className="text-[length:var(--text-h2)]">{tt("clinicHeading")}</h2>
+          <h2 className="text-[length:var(--text-h2)]">{t("clinicHeading")}</h2>
           <div className="mt-6 grid gap-8 md:grid-cols-2">
             {address ? (
               <div>
@@ -134,7 +159,7 @@ export default async function ProceduresIndex({ params }: Props) {
         </Reveal>
       </section>
 
-      {/* CTA (merged in from the former Treatment-in-Cyprus page) */}
+      {/* CTA */}
       <section className="bg-accent text-white">
         <Reveal className="mx-auto max-w-[1200px] px-6 py-16 text-center">
           <h2 className="text-[clamp(1.6rem,3vw,2.25rem)] text-white">{nav("treatment")}</h2>
