@@ -31,6 +31,10 @@
 
   /* Fluid type scale (Literata display / Inter body). */
   --text-display: clamp(2.4rem, 1.6rem + 3.4vw, 4rem);
+  /* Smaller display size for German only: its long compound words
+     (Nasenchirurgie, ästhetische, Facharzt) need a smaller size to stay whole
+     on each line instead of hyphenating. Used by the German hero <h1>. */
+  --text-display-de: clamp(1.95rem, 1.35rem + 2.5vw, 3.2rem);
   --text-h1: clamp(2.05rem, 1.5rem + 2.4vw, 3.1rem);
   --text-h2: clamp(1.55rem, 1.2rem + 1.5vw, 2.25rem);
   --text-h3: clamp(1.2rem, 1.05rem + 0.6vw, 1.45rem);

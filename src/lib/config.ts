@@ -18,13 +18,21 @@ export function visibleLocales(): readonly Locale[] {
  * `siteSettings` document (localised). The doctor's title (e.g. "Dr. med." on
  * German pages) is NOT hard-coded here — it is read from siteSettings per locale.
  */
+/**
+ * Google Maps query for the clinic's business listing. Used for the "Map" links
+ * (Footer, Contact, Treatment) and the embedded map pin, so they all resolve to
+ * the clinic's Google Business place rather than a bare street address.
+ */
+export const MAP_PLACE_QUERY =
+  "Δρ. Πάρις Παπακώστας – Ρινοπλαστική, Ρινοχειρουργική, Lordou Vyronos 2-Γραφείο 001, Nicosia, Lefkosia 1096, Cyprus";
+
 export const CONTACT = {
   phone: "+357 22 730269",
   mobile: "+357 99 623821",
   whatsapp: "35799623821",
   email: "dr.paris.papakostas@gmail.com",
   addressLines: ["Lordou Vyronos 2", "1096 Nicosia, Cyprus"],
-  mapUrl: "https://maps.google.com/?q=Lordou+Vyronos+2,+1096+Nicosia,+Cyprus",
+  mapUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_PLACE_QUERY)}`,
   // The doctor's existing public profiles (carried over from the WordPress site).
   // Eventual home is `siteSettings.socials` (used for sameAs in JSON-LD); kept here
   // alongside the other placeholder contact details until that is wired in.

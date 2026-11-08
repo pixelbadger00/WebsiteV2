@@ -83,6 +83,9 @@ export default async function ProcedurePage({ params }: Props) {
 
   const navItems = [
     { id: "overview", label: t("navOverview") },
+    ...(proc.animations?.some((a) => a.video?.url)
+      ? [{ id: "animation", label: t("animationTitle") }]
+      : []),
     { id: "expect", label: t("navExpect") },
     ...(faqItems.length > 0 ? [{ id: "faq", label: t("navFaq") }] : []),
   ];
@@ -156,6 +159,50 @@ export default async function ProcedurePage({ params }: Props) {
                 <Reveal className="mt-4">
                   <PortableContent value={body} />
                 </Reveal>
+              </section>
+            ) : null}
+
+            {/* 3D animations (click-to-play, with controls). Orientation-
+                agnostic: portrait and landscape clips both fit within the
+                column, capped by height, without distortion. */}
+            {proc.animations?.some((a) => a.video?.url) ? (
+              <section id="animation" className="mt-14 border-t border-line pt-12">
+                <Reveal>
+                  <h2 className="text-[length:var(--text-h2)]">{t("animationTitle")}</h2>
+                </Reveal>
+                <div className="mt-6 space-y-8">
+                  {proc.animations
+                    .filter((a) => a.video?.url)
+                    .map((a, i) => (
+                      <Reveal key={i} delay={i * 0.05}>
+                        {a.title ? (
+                          <p className="mb-2 font-serif text-[1.1rem] text-slate-800">
+                            {a.title}
+                          </p>
+                        ) : null}
+                        {/* Fixed 16:9 frame so every clip is the same height
+                            regardless of orientation; portrait clips are
+                            centered (object-contain) within it. */}
+                        <div className="relative aspect-video w-full overflow-hidden rounded-card bg-slate-900">
+                          <video
+                            controls
+                            preload="metadata"
+                            playsInline
+                            poster={a.poster?.asset?.url}
+                            className="h-full w-full object-contain"
+                          >
+                            <source
+                              src={a.video!.url}
+                              type={a.video!.mimeType ?? "video/mp4"}
+                            />
+                          </video>
+                        </div>
+                        {a.credit ? (
+                          <p className="mt-2 text-[0.8rem] text-slate-500">{a.credit}</p>
+                        ) : null}
+                      </Reveal>
+                    ))}
+                </div>
               </section>
             ) : null}
 

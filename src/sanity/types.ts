@@ -12,6 +12,7 @@ export type ImageAsset = {
 
 export type SanityImage = {
   alt?: string;
+  hotspot?: { x?: number; y?: number };
   asset?: ImageAsset | null;
 } | null;
 
@@ -40,6 +41,12 @@ export type Procedure = {
   heroImage?: SanityImage;
   body?: Localized<PortableText>;
   recoveryTime?: Localized<string>;
+  animations?: Array<{
+    title?: string;
+    credit?: string;
+    video?: { url?: string; mimeType?: string; size?: number } | null;
+    poster?: SanityImage;
+  }>;
   showBeforeAfter?: { el?: boolean; en?: boolean };
   beforeAfter?: BeforeAfterPair[];
   faqs?: FaqItem[];

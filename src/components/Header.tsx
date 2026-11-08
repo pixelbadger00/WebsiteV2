@@ -14,7 +14,6 @@ import { useMobileUI } from "./mobile/MobileUIProvider";
 export const NAV_ITEMS = [
   { href: "/services", key: "procedures", en: "Procedures" },
   { href: "/about-the-doctor", key: "about", en: "About" },
-  { href: "/treatment-in-cyprus", key: "treatment", en: "Treatment in Cyprus" },
   { href: "/blog", key: "blog", en: "Blog" },
   { href: "/faq", key: "faq", en: "FAQ" },
   { href: "/contact", key: "contact", en: "Contact" },
@@ -63,11 +62,11 @@ export default function Header() {
             src="/brand/logo-mark.png"
             alt=""
             aria-hidden
-            width={32}
-            height={32}
+            width={23}
+            height={40}
             priority
             unoptimized
-            className="size-8 rounded-full object-cover"
+            className="h-9 w-auto object-contain"
           />
           <span className="whitespace-nowrap">{t("Meta.siteName")}</span>
         </Link>

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { CONTACT } from "@/lib/config";
@@ -27,7 +28,16 @@ export default async function Footer() {
               aria-hidden
               className="grid size-9 place-items-center rounded-lg bg-white/10"
             >
-              ◠
+              {/* Logo is black on transparent; invert to white for the dark footer. */}
+              <Image
+                src="/brand/logo-mark.png"
+                alt=""
+                aria-hidden
+                width={23}
+                height={40}
+                unoptimized
+                className="h-6 w-auto object-contain invert"
+              />
             </span>
             {t("Meta.siteName")}
           </div>
@@ -87,9 +97,6 @@ export default async function Footer() {
           </h2>
           <Link href="/services" className="block py-2 text-white/80 hover:text-white">
             {t("Nav.procedures")}
-          </Link>
-          <Link href="/treatment-in-cyprus" className="block py-2 text-white/80 hover:text-white">
-            {t("Nav.treatment")}
           </Link>
           <Link href="/blog" className="block py-2 text-white/80 hover:text-white">
             {t("Nav.blog")}

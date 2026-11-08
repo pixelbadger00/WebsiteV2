@@ -32,6 +32,19 @@ export default function SanityImage({
   const altText = alt ?? image?.alt ?? "";
   const blur = lqip ? ({ placeholder: "blur" as const, blurDataURL: lqip }) : {};
 
+  // Honor the Sanity hotspot as object-position so editors can reframe a cover
+  // image in Studio (drag the hotspot) and it applies everywhere the image is
+  // rendered. An explicit `style.objectPosition` passed by the caller wins.
+  const hs = image?.hotspot;
+  const hotspotPosition =
+    hs && typeof hs.x === "number" && typeof hs.y === "number"
+      ? `${(hs.x * 100).toFixed(2)}% ${(hs.y * 100).toFixed(2)}%`
+      : undefined;
+  const mergedStyle: CSSProperties | undefined =
+    hotspotPosition || style
+      ? { objectPosition: hotspotPosition, ...style }
+      : undefined;
+
   if (fill) {
     return (
       <Image
@@ -40,7 +53,7 @@ export default function SanityImage({
         fill
         sizes={sizes}
         className={className}
-        style={style}
+        style={mergedStyle}
         priority={priority}
         quality={quality}
         {...blur}
@@ -56,7 +69,7 @@ export default function SanityImage({
       height={dims?.height ?? 1066}
       sizes={sizes}
       className={className}
-      style={style}
+      style={mergedStyle}
       priority={priority}
       quality={quality}
       {...blur}

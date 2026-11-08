@@ -206,8 +206,14 @@ export default async function HomePage({ params }: Props) {
               </HeroReveal>
             ) : null}
             <h1
-              className={`mt-4 text-[length:var(--text-display)] leading-[1.03] text-white ${
-                locale === "el" ? "max-w-[52ch]" : "max-w-[26ch]"
+              className={`mt-4 leading-[1.03] text-white ${
+                locale === "de"
+                  ? // German: smaller size + keep long compounds whole (no
+                    // hyphenation / mid-word breaks), with a slightly wider measure.
+                    "text-[length:var(--text-display-de)] break-normal hyphens-none max-w-[32ch]"
+                  : locale === "el"
+                    ? "text-[length:var(--text-display)] max-w-[52ch]"
+                    : "text-[length:var(--text-display)] max-w-[26ch]"
               }`}
             >
               {pick(home?.heroTitle, locale)}
@@ -326,13 +332,19 @@ export default async function HomePage({ params }: Props) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 p-6 text-white md:p-7">
-                    <h3 className="font-serif text-[1.35rem] font-semibold leading-tight text-white">
+                    {/* min-h reserves two title lines so 1-line and 2-line
+                        titles top-align across the row (e.g. Septoplasty vs the
+                        longer FESS title). */}
+                    <h3 className="min-h-[2.5em] font-serif text-[1.35rem] font-semibold leading-tight text-white">
                       {pick(proc.name, locale)}
                     </h3>
                     <div className="proc-more">
                       {/* Description: tablet / desktop only — dropped on mobile. */}
                       {pick(proc.summary, locale) ? (
-                        <p className="mt-2 hidden line-clamp-3 text-[0.95rem] text-white/85 sm:block">
+                        // min-h reserves 3 lines so tiles with shorter summaries
+                        // keep the same caption height, keeping titles aligned
+                        // across the row (the caption is bottom-anchored).
+                        <p className="mt-2 hidden min-h-[4.2em] line-clamp-3 text-[0.95rem] leading-[1.4] text-white/85 sm:block">
                           {pick(proc.summary, locale)}
                         </p>
                       ) : null}
@@ -386,13 +398,24 @@ export default async function HomePage({ params }: Props) {
               </p>
 
               {timeline.length > 0 ? (
-                <ul className="mt-7 space-y-3 border-t border-line pt-6">
+                <ul className="mt-7 border-t border-line pt-6">
                   {timeline.map((t, i) => (
-                    <li key={i} className="grid grid-cols-[7rem_1fr] gap-4">
-                      <span className="font-serif text-[1.05rem] font-semibold text-accent">
+                    <li
+                      key={i}
+                      className="grid grid-cols-[7rem_1fr] items-baseline"
+                    >
+                      <span className="whitespace-nowrap font-serif text-[1rem] font-semibold tabular-nums text-accent">
                         {pick(t.year, locale)}
                       </span>
-                      <span className="text-slate-600">{pick(t.label, locale)}</span>
+                      {/* Left border forms a continuous timeline spine; pb on
+                          all but the last row keeps it unbroken between entries. */}
+                      <span
+                        className={`border-l border-line pl-5 text-[0.98rem] leading-snug text-slate-600 ${
+                          i < timeline.length - 1 ? "pb-5" : ""
+                        }`}
+                      >
+                        {pick(t.label, locale)}
+                      </span>
                     </li>
                   ))}
                 </ul>

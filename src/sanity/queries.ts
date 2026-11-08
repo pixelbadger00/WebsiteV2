@@ -11,7 +11,7 @@ import type {
   SanityImage,
 } from "./types";
 
-const IMAGE = `{ alt, asset->{ url, metadata{ dimensions{ width, height }, lqip } } }`;
+const IMAGE = `{ alt, hotspot, asset->{ url, metadata{ dimensions{ width, height }, lqip } } }`;
 
 // ── siteSettings ──
 export function getSiteSettings() {
@@ -59,6 +59,7 @@ export function getProcedureBySlug(slug: string) {
     `*[_type=="procedure" && (slug.el.current==$slug || slug.en.current==$slug || slug.de.current==$slug)][0]{
       _id, name, slug, summary, recoveryTime, body, showBeforeAfter,
       "heroImage": heroImage${IMAGE},
+      "animations": animations[]{ title, credit, "video": video.asset->{ url, mimeType, size }, "poster": poster${IMAGE} },
       "beforeAfter": beforeAfter[]{ caption, "before": before${IMAGE}, "after": after${IMAGE} },
       faqs, seo
     }`,

@@ -27,6 +27,11 @@
 /testimonial/6744/          /about-the-doctor/    301
 /testimonial/6761/          /about-the-doctor/    301
 
+# Treatment-in-Cyprus merged into the procedures page (/services)
+/treatment-in-cyprus/       /services/            301
+/gr/treatment-in-cyprus/    /gr/services/         301
+/de/treatment-in-cyprus/    /de/services/         301
+
 # English section
 /en/home/                                       /en/                                            301
 /en/services-2/                                 /en/services/                                   301

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { pick } from "@/lib/i18n-content";
+import { CONTACT, MAP_PLACE_QUERY } from "@/lib/config";
 import { fixedPathAlternates, getGermanEnabled } from "@/lib/seo";
 import { getContactPage, getSiteSettings } from "@/sanity/queries";
 import BookButton from "@/components/BookButton";
@@ -73,15 +74,14 @@ export default async function ContactPage({ params }: Props) {
   const title = pick(page?.title, locale) ?? (await getTranslations("Nav"))("contact");
   const contact = settings?.contact;
   const address = pick(settings?.address, locale);
-  const mapUrl = settings?.mapUrl;
+  const mapUrl = settings?.mapUrl ?? CONTACT.mapUrl;
   const hours = settings?.openingHours ?? [];
   const telHref = (n: string) => `tel:${n.replace(/[^+\d]/g, "")}`;
 
-  // Keyless Google Maps embed (works in an iframe without an API key).
-  const mapQuery = (address ?? "Lordou Vyronos 2, 1096 Nicosia, Cyprus")
-    .replace(/\s*\n\s*/g, ", ")
-    .trim();
-  const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`;
+  // Keyless Google Maps embed (works in an iframe without an API key). Pin the
+  // clinic's Google Business place (MAP_PLACE_QUERY) so the embed matches the
+  // "Map" link rather than resolving a bare street address.
+  const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent(MAP_PLACE_QUERY)}&output=embed`;
 
   return (
     <>

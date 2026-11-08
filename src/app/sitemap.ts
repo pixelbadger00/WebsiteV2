@@ -8,7 +8,6 @@ const FIXED_PATHS = [
   "/",
   "/services",
   "/about-the-doctor",
-  "/treatment-in-cyprus",
   "/blog",
   "/faq",
   "/contact",

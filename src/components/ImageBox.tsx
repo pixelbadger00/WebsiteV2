@@ -10,6 +10,7 @@ export default function ImageBox({
   priority,
   className,
   quality,
+  objectPosition,
 }: {
   image?: SImage;
   alt?: string;
@@ -17,6 +18,8 @@ export default function ImageBox({
   priority?: boolean;
   className?: string;
   quality?: number;
+  /** CSS object-position for the cover image, e.g. "80% 50%". Default center. */
+  objectPosition?: string;
 }) {
   const has = Boolean(image?.asset?.url);
   return (
@@ -32,6 +35,7 @@ export default function ImageBox({
           sizes={sizes}
           quality={quality}
           className="h-full w-full object-cover"
+          style={objectPosition ? { objectPosition } : undefined}
         />
       ) : (
         <span
