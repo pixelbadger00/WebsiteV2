@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { CONTACT } from "@/lib/config";
+import CookieSettingsButton from "@/components/analytics/CookieSettingsButton";
 
 const SOCIAL_ICONS: Record<string, ReactNode> = {
   instagram: (
@@ -123,6 +124,7 @@ export default async function Footer() {
             <Link href="/imprint" className="inline-block py-1.5 hover:text-white">
               {t("Footer.imprint")}
             </Link>
+            <CookieSettingsButton className="inline-block py-1.5 hover:text-white" />
           </span>
         </div>
       </div>

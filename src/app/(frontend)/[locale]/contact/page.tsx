@@ -7,6 +7,7 @@ import { CONTACT, MAP_PLACE_QUERY } from "@/lib/config";
 import { fixedPathAlternates, getGermanEnabled } from "@/lib/seo";
 import { getContactPage, getSiteSettings } from "@/sanity/queries";
 import BookButton from "@/components/BookButton";
+import MapEmbed from "@/components/MapEmbed";
 import Reveal from "@/components/motion/Reveal";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -207,13 +208,7 @@ export default async function ContactPage({ params }: Props) {
             <p className="mt-4 text-slate-600">{t("bookBody")}</p>
             <BookButton className="btn btn-primary mt-6 self-start">{cta("book")}</BookButton>
             <div className="mt-8 flex-1 overflow-hidden rounded-lg border border-line">
-              <iframe
-                title={t("mapTitle")}
-                src={mapEmbed}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="block h-full min-h-[300px] w-full"
-              />
+              <MapEmbed src={mapEmbed} title={t("mapTitle")} />
             </div>
           </Reveal>
         </div>

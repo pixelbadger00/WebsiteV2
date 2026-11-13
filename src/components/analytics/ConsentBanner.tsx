@@ -59,6 +59,19 @@ export default function ConsentBanner() {
     }
   }, [configured]);
 
+  // Re-open the banner on demand (e.g. the footer "Cookie settings" link) so a
+  // visitor can change or withdraw a prior choice at any time.
+  useEffect(() => {
+    if (!configured) {
+      return;
+    }
+    function open() {
+      setVisible(true);
+    }
+    window.addEventListener("consent:open", open);
+    return () => window.removeEventListener("consent:open", open);
+  }, [configured]);
+
   function choose(granted: boolean) {
     try {
       localStorage.setItem(STORAGE_KEY, granted ? "granted" : "denied");
@@ -66,6 +79,8 @@ export default function ConsentBanner() {
       /* ignore storage errors */
     }
     updateConsent(granted);
+    // Let consent-gated embeds (e.g. the click-to-load map) react immediately.
+    window.dispatchEvent(new CustomEvent("consent:changed", { detail: granted }));
     setVisible(false);
   }
 

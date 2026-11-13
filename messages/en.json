@@ -48,6 +48,8 @@
     "bookTitle": "Book a consultation",
     "bookBody": "Choose a time that suits you and arrange your first appointment online. Every treatment begins with an in-person consultation, where your options, recovery and any risks are discussed in full.",
     "mapTitle": "Find the clinic",
+    "showMap": "Show map",
+    "mapConsentNote": "Loads Google Maps. Google may set cookies.",
     "call": "Call",
     "whatsapp": "WhatsApp",
     "email": "Email",
@@ -75,7 +77,8 @@
     "message": "We use cookies for analytics and marketing. Accept or reject non-essential cookies.",
     "learnMore": "Cookie policy",
     "accept": "Accept",
-    "reject": "Reject"
+    "reject": "Reject",
+    "manage": "Cookie settings"
   },
   "Procedure": {
     "breadcrumb": "Procedures",

@@ -48,6 +48,8 @@
     "bookTitle": "Beratungstermin buchen",
     "bookBody": "Wählen Sie einen passenden Zeitpunkt und vereinbaren Sie Ihren ersten Termin online. Jede Behandlung beginnt mit einer persönlichen Beratung, in der Ihre Möglichkeiten, die Erholung und mögliche Risiken ausführlich besprochen werden.",
     "mapTitle": "Praxis finden",
+    "showMap": "Karte anzeigen",
+    "mapConsentNote": "Lädt Google Maps. Google kann Cookies setzen.",
     "call": "Anrufen",
     "whatsapp": "WhatsApp",
     "email": "E-Mail",
@@ -75,7 +77,8 @@
     "message": "Wir verwenden Cookies für Analyse und Marketing. Akzeptieren oder lehnen Sie nicht notwendige Cookies ab.",
     "learnMore": "Cookie-Richtlinie",
     "accept": "Akzeptieren",
-    "reject": "Ablehnen"
+    "reject": "Ablehnen",
+    "manage": "Cookie-Einstellungen"
   },
   "Procedure": {
     "breadcrumb": "Eingriffe",
