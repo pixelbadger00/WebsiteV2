@@ -17,6 +17,7 @@ import ConsentMode, { GtmNoScript } from "@/components/analytics/ConsentMode";
 import ConsentBanner from "@/components/analytics/ConsentBanner";
 import AnalyticsListener from "@/components/analytics/AnalyticsListener";
 import CalPopup from "@/components/booking/CalPopup";
+import BookingWizard from "@/components/booking/BookingWizard";
 import { MobileUIProvider } from "@/components/mobile/MobileUIProvider";
 import MobileMenu from "@/components/mobile/MobileMenu";
 import "../../globals.css";
@@ -117,6 +118,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <MobileActions />
             <AnalyticsListener />
             {CAL_LINK ? <CalPopup /> : null}
+            {CAL_LINK ? <BookingWizard /> : null}
             <ConsentBanner />
           </MobileUIProvider>
           </MotionProvider>
