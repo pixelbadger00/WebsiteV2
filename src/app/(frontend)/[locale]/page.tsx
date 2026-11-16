@@ -295,8 +295,11 @@ export default async function HomePage({ params }: Props) {
                   sizes="(max-width: 1024px) 100vw, 1200px"
                   className="h-full w-full"
                   priority
-                  // Rhinoplasty's portrait photo (6-53): focal point 65% from
-                  // the top.
+                  // Rhinoplasty's portrait photo (6-53): show the whole image
+                  // (zoomed out to fit) rather than a cropped cover.
+                  objectFit={
+                    featured._id === "procedure.rhinoplasty" ? "contain" : "cover"
+                  }
                   objectPosition={
                     featured._id === "procedure.rhinoplasty" ? "50% 65%" : undefined
                   }

@@ -11,6 +11,7 @@ export default function ImageBox({
   className,
   quality,
   objectPosition,
+  objectFit = "cover",
 }: {
   image?: SImage;
   alt?: string;
@@ -20,6 +21,8 @@ export default function ImageBox({
   quality?: number;
   /** CSS object-position for the cover image, e.g. "80% 50%". Default center. */
   objectPosition?: string;
+  /** "cover" (fill + crop, default) or "contain" (show the whole image). */
+  objectFit?: "cover" | "contain";
 }) {
   const has = Boolean(image?.asset?.url);
   return (
@@ -34,7 +37,11 @@ export default function ImageBox({
           priority={priority}
           sizes={sizes}
           quality={quality}
-          className="h-full w-full object-cover"
+          className={
+            objectFit === "contain"
+              ? "h-full w-full object-contain"
+              : "h-full w-full object-cover"
+          }
           style={objectPosition ? { objectPosition } : undefined}
         />
       ) : (
