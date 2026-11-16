@@ -109,7 +109,7 @@ export default async function FaqPage({ params }: Props) {
         </div>
       ) : null}
 
-      <div className="mt-12 border-t border-slate-300 pt-6">
+      <div className="mt-8">
         <Link href="/contact" className="font-semibold text-accent hover:text-accent-700">
           {nav("contact")} →
         </Link>
