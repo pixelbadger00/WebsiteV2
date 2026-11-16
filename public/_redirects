@@ -18,7 +18,9 @@
 /rhinoplasty-surgery-techniques/          /blog/rhinoplasty-surgery-techniques/          301
 /rhinoplasty-surgery-techniques-2/        /blog/rhinoplasty-surgery-techniques/          301
 /european-rhinoplasty-masterclass-center/ /blog/european-rhinoplasty-masterclass-center/ 301
-/riniko/                                  /blog/riniko/                                  301
+# riniko ("Ρινικό Διάφραγμα") merged into deviated-nasal-septum ("Διαφραγματοπλαστική")
+/riniko/                                  /blog/deviated-nasal-septum/                   301
+/gr/blog/riniko/                          /gr/blog/deviated-nasal-septum/                301
 
 # Removed pages → nearest equivalent
 /before-after-2/            /services/            301
