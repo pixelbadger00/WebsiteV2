@@ -213,7 +213,7 @@ export default async function HomePage({ params }: Props) {
                     // hyphenation / mid-word breaks), with a slightly wider measure.
                     "text-[length:var(--text-display-de)] break-normal hyphens-none max-w-[32ch]"
                   : locale === "el"
-                    ? "text-[length:var(--text-display)] max-w-[52ch]"
+                    ? "text-[length:var(--text-display-el)] text-balance max-w-[52ch]"
                     : "text-[length:var(--text-display)] max-w-[26ch]"
               }`}
             >

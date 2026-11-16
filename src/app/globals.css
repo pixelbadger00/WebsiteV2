@@ -35,6 +35,10 @@
      (Nasenchirurgie, ästhetische, Facharzt) need a smaller size to stay whole
      on each line instead of hyphenating. Used by the German hero <h1>. */
   --text-display-de: clamp(1.95rem, 1.35rem + 2.5vw, 3.2rem);
+  /* Slightly smaller display size for Greek: the longer Greek hero line
+     ("…από εξειδικευμένο χειρουργό ΩΡΛ.") otherwise orphans "από" on its own
+     line. Sits between the default and the German size. Used by the Greek hero <h1>. */
+  --text-display-el: clamp(2.15rem, 1.5rem + 2.9vw, 3.5rem);
   --text-h1: clamp(2.05rem, 1.5rem + 2.4vw, 3.1rem);
   --text-h2: clamp(1.55rem, 1.2rem + 1.5vw, 2.25rem);
   --text-h3: clamp(1.2rem, 1.05rem + 0.6vw, 1.45rem);
