@@ -53,7 +53,7 @@ const text = {
 const summaries: Record<string, { el: string; en: string }> = {
   "procedure.septoplasty": {
     en: "A focused procedure to straighten a deviated nasal septum that blocks breathing, restoring clear nasal airflow and a better quality of life.",
-    el: "Μια στοχευμένη επέμβαση για τη διόρθωση του σκολιωμένου ρινικού διαφράγματος που εμποδίζει την αναπνοή, αποκαθιστώντας την ελεύθερη ρινική ροή και καλύτερη ποιότητα ζωής.",
+    el: "Μια στοχευμένη επέμβαση για τη διόρθωση του σκολιωμένου ρινικού διαφράγματος που εμποδίζει την αναπνοή, αποκαθιστώντας την ελεύθερη ρινική αναπνοή και καλύτερη ποιότητα ζωής.",
   },
   "procedure.functional-endoscopic-sinus-surgery-fess": {
     en: "A minimally invasive endoscopic procedure for the paranasal sinuses, using high-definition imaging to restore their natural drainage and ventilation with precision.",
