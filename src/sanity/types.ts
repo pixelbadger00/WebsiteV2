@@ -42,7 +42,7 @@ export type Procedure = {
   body?: Localized<PortableText>;
   recoveryTime?: Localized<string>;
   animations?: Array<{
-    title?: string;
+    title?: Localized<string>;
     credit?: string;
     video?: { url?: string; mimeType?: string; size?: number } | null;
     poster?: SanityImage;

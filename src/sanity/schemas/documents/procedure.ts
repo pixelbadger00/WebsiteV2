@@ -44,7 +44,7 @@ export const procedure = defineType({
           name: "animationItem",
           title: "Animation",
           fields: [
-            { name: "title", title: "Title (optional)", type: "string" },
+            { name: "title", title: "Title (optional)", type: "localeString" },
             {
               name: "video",
               title: "Video (MP4)",

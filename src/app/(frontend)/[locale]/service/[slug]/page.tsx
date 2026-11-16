@@ -173,11 +173,13 @@ export default async function ProcedurePage({ params }: Props) {
                 <div className="mt-6 space-y-8">
                   {proc.animations
                     .filter((a) => a.video?.url)
-                    .map((a, i) => (
+                    .map((a, i) => {
+                      const aTitle = pick(a.title, locale);
+                      return (
                       <Reveal key={i} delay={i * 0.05}>
-                        {a.title ? (
+                        {aTitle ? (
                           <p className="mb-2 font-serif text-[1.1rem] text-slate-800">
-                            {a.title}
+                            {aTitle}
                           </p>
                         ) : null}
                         {/* Fixed 16:9 frame so every clip is the same height
@@ -201,7 +203,8 @@ export default async function ProcedurePage({ params }: Props) {
                           <p className="mt-2 text-[0.8rem] text-slate-500">{a.credit}</p>
                         ) : null}
                       </Reveal>
-                    ))}
+                      );
+                    })}
                 </div>
               </section>
             ) : null}
