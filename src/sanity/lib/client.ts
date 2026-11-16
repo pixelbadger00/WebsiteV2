@@ -1,50 +1,46 @@
-import { createClient } from "next-sanity";
 import { apiVersion, dataset, projectId } from "../env";
 
-// The site reads PUBLISHED content ONLY. `perspective: "published"` guarantees
-// drafts never appear on the live site, even when the read token is able to
-// read them. It never uses the write token — that belongs to scripts/
-// (migrate-wp, seed-home) alone, never imported by the app or build. Reads
-// happen at build time (static generation), so nothing is shipped to the
-// browser. When the dataset is fully public, no token is needed at all and the
-// CDN serves reads.
+// Sanity reads go through a PLAIN fetch to the query API — deliberately NOT
+// @sanity/client / next-sanity's createClient, which on Node 22.12 hits an
+// undici zstd decompression bug and throws
+// "SyntaxError: Unexpected non-whitespace character after JSON". Native fetch
+// avoids it (the migration scripts read the same way). PUBLISHED content only.
 //
-// SANITY_API_READ_TOKEN is an optional, read-only (Viewer) build-time token for
-// datasets whose content is not yet anonymously readable. It has NO
-// NEXT_PUBLIC_ prefix, so Next.js never inlines it into client bundles — it
-// stays server-side (build-time) only.
-const readToken = process.env.SANITY_API_READ_TOKEN;
+// SANITY_API_READ_TOKEN is an optional, server-side (no NEXT_PUBLIC_ prefix)
+// read-only token for datasets that aren't anonymously readable; with no token
+// the public CDN serves reads. Next.js's fetch cache is used via the `next`
+// option (tags for webhook revalidation + an hourly self-healing TTL).
 
-export const client = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  // CDN for anonymous public reads; a read token (if set) bypasses the CDN.
-  useCdn: !readToken,
-  perspective: "published",
-  token: readToken || undefined,
-});
+const readToken = process.env.SANITY_API_READ_TOKEN;
+// Public, cached CDN for anonymous reads; the live API host when a token is set.
+const host = readToken ? "api.sanity.io" : "apicdn.sanity.io";
 
 /**
- * Tagged fetch for static generation. Every frontend query goes through here,
- * and we re-assert `perspective: "published"` per query so drafts can never
- * surface on the live site regardless of client defaults. Tags let a Sanity
- * webhook later call revalidateTag(...) to refresh affected pages (Phase 3/5).
+ * Tagged fetch for static generation. Every frontend query goes through here.
+ * `perspective=published` is re-asserted per query so drafts never surface on
+ * the live site regardless of token capability.
  */
 export async function sanityFetch<T>(
   query: string,
   params: Record<string, unknown> = {},
   tags: string[] = [],
 ): Promise<T> {
-  return client.fetch<T>(query, params, {
-    perspective: "published",
-    // Revalidate hourly as a self-healing fallback. `revalidate: false` (cache
-    // forever) is dangerous on Netlify: the Next Data Cache is restored across
-    // builds, so any build that cached an empty result (e.g. an early build
-    // against the empty `production` fallback dataset) keeps replaying those
-    // empties on every later build. A finite TTL lets content recover. Tags are
-    // retained so a Sanity webhook can still call revalidateTag(...) for instant
-    // updates (Phase 3/5).
+  const search = new URLSearchParams({ query, perspective: "published" });
+  for (const [key, value] of Object.entries(params)) {
+    // GROQ params are passed as $name=<JSON-encoded value> in the query string.
+    search.set(`$${key}`, JSON.stringify(value));
+  }
+  const url = `https://${projectId}.${host}/v${apiVersion}/data/query/${dataset}?${search.toString()}`;
+
+  const res = await fetch(url, {
+    headers: readToken ? { Authorization: `Bearer ${readToken}` } : {},
+    // Revalidate hourly as a self-healing fallback; tags let a Sanity webhook
+    // call revalidateTag(...) for instant updates.
     next: { tags, revalidate: 3600 },
   });
+  if (!res.ok) {
+    throw new Error(`Sanity query failed (${res.status}): ${await res.text()}`);
+  }
+  const json = (await res.json()) as { result: T };
+  return json.result;
 }
