@@ -150,15 +150,6 @@ export default async function HomePage({ params }: Props) {
 
   const featured = procedures[0];
   const rest = procedures.slice(1);
-  // Rhinoplasty's featured tile shows the whole photo at full container width:
-  // size the tile to the image's own aspect ratio so object-cover fills it with
-  // no cropping (image width == container width).
-  const featIsRhino = featured?._id === "procedure.rhinoplasty";
-  const featDims = featured?.heroImage?.asset?.metadata?.dimensions;
-  const featAspect =
-    featIsRhino && featDims?.width && featDims?.height
-      ? featDims.width / featDims.height
-      : undefined;
   const procHref = (p: (typeof procedures)[number]) => {
     const slug = pick(p.slug, locale)?.current;
     return slug ? `/service/${slug}` : undefined;
@@ -297,14 +288,7 @@ export default async function HomePage({ params }: Props) {
               href={procHref(featured) ?? "/services"}
               className="proc-tile group block overflow-hidden rounded-lg"
             >
-              <div
-                className={
-                  featAspect
-                    ? "relative w-full"
-                    : "relative aspect-[16/11] sm:aspect-[16/9] lg:aspect-[21/9]"
-                }
-                style={featAspect ? { aspectRatio: String(featAspect) } : undefined}
-              >
+              <div className="relative aspect-[16/11] sm:aspect-[16/9] lg:aspect-[21/9]">
                 <ImageBox
                   image={featured.heroImage}
                   alt=""
