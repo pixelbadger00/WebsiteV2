@@ -182,23 +182,22 @@ export default async function ProcedurePage({ params }: Props) {
                             {aTitle}
                           </p>
                         ) : null}
-                        {/* Fixed 16:9 frame so every clip is the same height
-                            regardless of orientation; portrait clips are
-                            centered (object-contain) within it. */}
-                        <div className="relative aspect-video w-full overflow-hidden rounded-card bg-slate-900">
-                          <video
-                            controls
-                            preload="metadata"
-                            playsInline
-                            poster={a.poster?.asset?.url}
-                            className="h-full w-full object-contain"
-                          >
-                            <source
-                              src={a.video!.url}
-                              type={a.video!.mimeType ?? "video/mp4"}
-                            />
-                          </video>
-                        </div>
+                        {/* Each clip renders at its native aspect ratio (no
+                            forced 16:9): landscape fills the column width,
+                            portrait keeps its own proportions, capped by height
+                            and centered. max-w-full keeps it responsive. */}
+                        <video
+                          controls
+                          preload="metadata"
+                          playsInline
+                          poster={a.poster?.asset?.url}
+                          className="mx-auto block h-auto max-h-[75vh] w-auto max-w-full rounded-card bg-slate-900"
+                        >
+                          <source
+                            src={a.video!.url}
+                            type={a.video!.mimeType ?? "video/mp4"}
+                          />
+                        </video>
                         {a.credit ? (
                           <p className="mt-2 text-[0.8rem] text-slate-500">{a.credit}</p>
                         ) : null}
