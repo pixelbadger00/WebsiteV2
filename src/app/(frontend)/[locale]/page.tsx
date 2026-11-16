@@ -493,7 +493,7 @@ export default async function HomePage({ params }: Props) {
                             {pick(post.excerpt, locale)}
                           </p>
                         ) : null}
-                        <span className="mt-4 font-semibold text-accent group-hover:text-accent-700">
+                        <span className="mt-auto pt-4 font-semibold text-accent group-hover:text-accent-700">
                           {blog("readMore")}
                         </span>
                       </div>

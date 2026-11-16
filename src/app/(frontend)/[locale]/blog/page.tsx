@@ -79,7 +79,7 @@ export default async function BlogIndex({ params }: Props) {
                   {pick(post.excerpt, locale) ? (
                     <p className="mt-2 text-slate-600">{pick(post.excerpt, locale)}</p>
                   ) : null}
-                  <span className="mt-3 font-semibold text-accent group-hover:text-accent-700">
+                  <span className="mt-auto pt-3 font-semibold text-accent group-hover:text-accent-700">
                     {t("readMore")} →
                   </span>
                 </div>

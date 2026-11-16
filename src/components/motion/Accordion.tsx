@@ -43,7 +43,7 @@ export default function Accordion({ items }: { items: AccordionItem[] }) {
                     transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                     style={{ overflow: "hidden" }}
                   >
-                    <p className="pb-5 leading-[1.7] text-slate-600">{it.a}</p>
+                    <p className="whitespace-pre-line pb-5 leading-[1.7] text-slate-600">{it.a}</p>
                   </m.div>
                 ) : null}
               </AnimatePresence>
