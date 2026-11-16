@@ -124,6 +124,11 @@ const bioDe: Block[] = [
 
 const shortBioElNew =
   "Ωτορινολαρυγγολόγος με πιστοποιημένη εξειδίκευση στην πλαστική χειρουργική προσώπου (Γερμανία), με έμφαση στη ρινοπλαστική και τη ρινοχειρουργική. Εκπαιδευμένος σε κορυφαία πανεπιστημιακά νοσοκομεία της Γερμανίας, με ιδιωτικό ιατρείο στη Λευκωσία, Κύπρο.";
+// CV subtitle / role line shown as the About-page lead under the name.
+const shortBioEnNew =
+  "Otorhinolaryngologist – Head & Neck Surgeon · Specialist in Facial Plastic Surgery, Rhinoplasty and Rhinologic Surgery.";
+const shortBioDeNew =
+  "Facharzt für Hals-Nasen-Ohren-Heilkunde und Kopf-Hals-Chirurgie · Zusatzqualifikation in Plastischen Operationen · Spezialisierung auf Rhinoplastik und Rhinologie.";
 
 async function main(): Promise<void> {
   const res = await fetch(`${base}/data/mutate/${dataset}`, {
@@ -139,6 +144,8 @@ async function main(): Promise<void> {
               "bio.en": bioEn,
               "bio.de": bioDe,
               "shortBio.el": shortBioElNew,
+              "shortBio.en": shortBioEnNew,
+              "shortBio.de": shortBioDeNew,
             },
           },
         },
