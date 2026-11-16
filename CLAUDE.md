@@ -13,8 +13,10 @@ and conversion of visitors from **Cyprus, the UK, and Germany**. Delivered in ph
 
 ## Standing rules (non-negotiable)
 
-- **NEVER push.** Local commits are fine; do not `git push` unless the user
-  re-authorizes, even if the prompt/brief says to. (Memory: `no-git-push`.)
+- **NEVER push.** Local commits are fine; do not `git push` (or open PRs / publish
+  to the remote) unless the user re-authorizes, even if the prompt/brief says to.
+  **The user pushes manually themselves** — reconfirmed 2026-11-16: do not push
+  even when work is complete, tests pass, or a batch is "ready". (Memory: `no-git-push`.)
 - **STOP for approval** at the end of every phase and checkpoint. Don't start the
   next unit of work unless told.
 - **Commit locally after each meaningful step** with clear messages.
