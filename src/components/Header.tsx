@@ -2,30 +2,26 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import LanguageSwitcher from "./LanguageSwitcher";
 import BookButton from "./BookButton";
 import { useMobileUI } from "./mobile/MobileUIProvider";
 
-// `en` is the English fallback shown on the Greek site: the Greek nav labels are
-// wide enough in the heading font to collide in the desktop bar, so on `el` we
-// render these English labels instead. Other locales use their own translation.
 export const NAV_ITEMS = [
-  { href: "/services", key: "procedures", en: "Procedures" },
-  { href: "/about-the-doctor", key: "about", en: "About" },
-  { href: "/blog", key: "blog", en: "Blog" },
-  { href: "/faq", key: "faq", en: "FAQ" },
-  { href: "/contact", key: "contact", en: "Contact" },
+  { href: "/services", key: "procedures" },
+  { href: "/about-the-doctor", key: "about" },
+  { href: "/blog", key: "blog" },
+  { href: "/faq", key: "faq" },
+  { href: "/contact", key: "contact" },
 ] as const;
 
-// Nav label: English on the Greek locale (avoids the desktop overlap), otherwise
-// the active locale's translation.
+// Nav label: always the active locale's own translation. (The Greek bar used to
+// fall back to English labels to avoid desktop overlap; the doctor wants Greek
+// everywhere, so the width is handled with tighter spacing/size on `lg` instead.)
 export function useNavLabel() {
   const t = useTranslations();
-  const locale = useLocale();
-  return (item: (typeof NAV_ITEMS)[number]) =>
-    locale === "el" ? item.en : t(`Nav.${item.key}`);
+  return (item: (typeof NAV_ITEMS)[number]) => t(`Nav.${item.key}`);
 }
 
 export default function Header() {
@@ -71,13 +67,14 @@ export default function Header() {
           <span className="whitespace-nowrap">{t("Meta.siteName")}</span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="mx-auto hidden gap-5 lg:flex">
+        {/* Desktop nav — tighter gap/size at lg so the Greek labels fit without
+            switching to English; roomier from xl up. */}
+        <nav className="mx-auto hidden gap-4 lg:flex xl:gap-5">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="link-underline text-[0.95rem] font-medium whitespace-nowrap text-ink hover:text-accent"
+              className="link-underline text-[0.88rem] font-medium whitespace-nowrap text-ink hover:text-accent xl:text-[0.95rem]"
             >
               {navLabel(item)}
             </Link>
