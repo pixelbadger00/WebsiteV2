@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { pick } from "@/lib/i18n-content";
+import { fullName } from "@/lib/doctor-name";
 import { normalizeBio } from "@/lib/portable-clean";
 import { fixedPathAlternates, getGermanEnabled } from "@/lib/seo";
 import { getDoctor, getSiteSettings, getOfficeImage } from "@/sanity/queries";
@@ -17,25 +18,6 @@ type Props = { params: Promise<{ locale: string }> };
 
 // Fallback portrait until doctor.portrait is assigned in Studio.
 const PORTRAIT_PHOTO = "Paris papacostas new office 2026-27.jpg";
-
-// Doctor name prefixed with the per-locale title (never hard-coded; "Dr. med."
-// on /de stays empty until confirmed). siteSettings.titlePrefix drives it.
-// Skip the prefix when the name already begins with it (avoids "Dr. Dr …").
-function fullName(
-  prefix: string | undefined,
-  name: string | undefined,
-): string {
-  const n = (name ?? "").trim();
-  const p = (prefix ?? "").trim();
-  if (!p) {
-    return n;
-  }
-  const bare = p.replace(/\.$/, "").toLowerCase();
-  if (n.toLowerCase().startsWith(bare)) {
-    return n;
-  }
-  return `${p} ${n}`.trim();
-}
 
 function firstParagraph(pt: unknown, max = 200): string {
   if (!Array.isArray(pt)) {

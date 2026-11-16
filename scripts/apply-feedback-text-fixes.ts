@@ -75,8 +75,8 @@ function fixRhinoBodyEl(blocks: Block[]): Block[] {
       return { ...span, text };
     });
     const full = children.map((c) => c.text ?? "").join("").trim();
-    if (full === taglineNoStop && children.length > 0) {
-      const last = children[children.length - 1];
+    const last = children[children.length - 1];
+    if (full === taglineNoStop && last) {
       last.text = (last.text ?? "") + ".";
     }
     return { ...block, children };

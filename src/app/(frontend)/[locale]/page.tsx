@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { pick } from "@/lib/i18n-content";
+import { fullName } from "@/lib/doctor-name";
 import { fixedPathAlternates, getGermanEnabled } from "@/lib/seo";
 import {
   getSiteSettings,
@@ -392,7 +393,9 @@ export default async function HomePage({ params }: Props) {
               {pick(home?.aboutEyebrow, locale) ? (
                 <p className="eyebrow">{pick(home?.aboutEyebrow, locale)}</p>
               ) : null}
-              <h2 className="mt-2 text-[length:var(--text-h2)]">{pick(doctor.name, locale)}</h2>
+              <h2 className="mt-2 text-[length:var(--text-h2)]">
+                {fullName(pick(settings?.titlePrefix, locale), pick(doctor.name, locale))}
+              </h2>
               <p className="mt-4 max-w-[58ch] text-[1.05rem] text-slate-600">
                 {firstParagraph(pick(doctor.bio, locale))}
               </p>
