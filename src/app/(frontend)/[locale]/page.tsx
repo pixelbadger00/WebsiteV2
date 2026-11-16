@@ -297,9 +297,9 @@ export default async function HomePage({ params }: Props) {
                   priority
                   // Rhinoplasty's portrait photo (6-53) sits too low when
                   // centre-cropped in the wide featured tile; pull the focal
-                  // point nearer the top.
+                  // point up to 15% from the top (≈35% higher than centre).
                   objectPosition={
-                    featured._id === "procedure.rhinoplasty" ? "50% 35%" : undefined
+                    featured._id === "procedure.rhinoplasty" ? "50% 15%" : undefined
                   }
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
