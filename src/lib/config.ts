@@ -35,7 +35,7 @@ export const CONTACT = {
   mobile: "+357 99 623821",
   whatsapp: "35799623821",
   email: "dr.paris.papakostas@gmail.com",
-  addressLines: ["Lordou Vyronos 2", "1096 Nicosia, Cyprus"],
+  addressLines: ["Lordou Vyronos 2-Γραφείο 001", "Nicosia, Lefkosia 1096, Cyprus"],
   mapUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_PLACE_QUERY)}`,
   // The doctor's existing public profiles (carried over from the WordPress site).
   // Eventual home is `siteSettings.socials` (used for sameAs in JSON-LD); kept here
