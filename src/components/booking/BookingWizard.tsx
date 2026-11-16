@@ -6,31 +6,33 @@ import { CONTACT } from "@/lib/config";
 
 // Pre-booking screening step (doctor feedback, points 27 & 29). Any "Book"
 // trigger dispatches an `open-booking` window event; this modal asks a couple of
-// questions and then opens the correct Cal.com event type (each reason is its
-// own event type with its own duration, so slots are already keyed to the
-// reason — point 29). The final buttons carry `data-cal-link`, so the existing
-// CalPopup bootstrap opens the Cal modal; no Cal logic is duplicated here.
+// questions and then opens the correct Cal.com event type. The final buttons
+// carry `data-cal-link`, so the existing CalPopup bootstrap opens the Cal modal;
+// no Cal logic is duplicated here.
+//
+// Each reason has TWO Cal.com event types:
+//   inPerson — the "-gesy" variant: location = clinic, requires confirmation,
+//              no payment. Open to everyone (GeSY covered; others pay at clinic).
+//   online   — video + Stripe payment, non-GeSY only, instant confirmation.
+// Each event type carries its own duration, so slots are already keyed to the
+// reason (point 29).
 
 const CAL_BASE = process.env.NEXT_PUBLIC_CAL_LINK;
 
-// Online-consultation event type is not created yet. When it exists in Cal.com,
-// put its slug here and the online branch books it directly instead of asking
-// the patient to call.
-const ONLINE_SLUG = "";
-
-type Reason = { key: string; slug: string; min: number };
+type Reason = { key: string; inPerson: string; online: string; min: number };
 const REASONS: Reason[] = [
-  { key: "reasonRhinoplasty", slug: "rhinoplasty", min: 30 },
-  { key: "reasonBreathing", slug: "nasal-breathing-difficulty", min: 15 },
-  { key: "reasonSinusitis", slug: "chronic-sinusitis", min: 15 },
-  { key: "reasonOther", slug: "other-nose-sinus-condition", min: 15 },
+  // ⚠️ confirm the Rhinoplasty GeSY slug — it was unclear in the doctor's message.
+  { key: "reasonRhinoplasty", inPerson: "rhinoplasty-gesy", online: "rhinoplasty", min: 30 },
+  { key: "reasonBreathing", inPerson: "nasal-breathing-difficulty-gesy", online: "nasal-breathing-difficulty", min: 15 },
+  { key: "reasonSinusitis", inPerson: "chronic-sinusitis-gesy", online: "chronic-sinusitis", min: 15 },
+  { key: "reasonOther", inPerson: "other-nose-sinus-condition-gesy", online: "other-nose-sinus-condition", min: 15 },
 ];
 
-type Step = "mode" | "gesy" | "reason" | "gesyBlock" | "call" | "onlineArrange";
+type Mode = "inperson" | "online";
+type Step = "mode" | "gesy" | "reason" | "gesyBlock" | "call";
 
 // --- Presentational pieces (module scope so they aren't re-created per render) ---
 
-// A non-booking option (advances a step).
 function Choice({
   label,
   desc,
@@ -114,6 +116,7 @@ export default function BookingWizard() {
   const t = useTranslations("BookingWizard");
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<Step>("mode");
+  const [mode, setMode] = useState<Mode>("inperson");
   const panelRef = useRef<HTMLDivElement>(null);
   const phone = CONTACT.phone2 ?? CONTACT.phone;
   const telHref = `tel:${phone.replace(/[^+\d]/g, "")}`;
@@ -123,6 +126,7 @@ export default function BookingWizard() {
   useEffect(() => {
     const onOpen = () => {
       setStep("mode");
+      setMode("inperson");
       setOpen(true);
     };
     window.addEventListener("open-booking", onOpen);
@@ -154,12 +158,15 @@ export default function BookingWizard() {
 
   const calLink = (slug: string) => `${CAL_BASE}/${slug}`;
   const callLabel = t("call");
+  const slugFor = (r: Reason) => (mode === "online" ? r.online : r.inPerson);
 
   const canBack = step !== "mode";
   const back = () => {
-    if (step === "gesy" || step === "reason") {
+    if (step === "gesy") {
       setStep("mode");
-    } else if (step === "gesyBlock" || step === "onlineArrange") {
+    } else if (step === "reason") {
+      setStep(mode === "online" ? "gesy" : "mode");
+    } else if (step === "gesyBlock") {
       setStep("gesy");
     } else if (step === "call") {
       setStep("reason");
@@ -204,8 +211,22 @@ export default function BookingWizard() {
             <h2 id="booking-wizard-title" className="text-[length:var(--text-h3)]">
               {t("modeTitle")}
             </h2>
-            <Choice label={t("modeInPerson")} desc={t("modeInPersonDesc")} onClick={() => setStep("reason")} />
-            <Choice label={t("modeOnline")} desc={t("modeOnlineDesc")} onClick={() => setStep("gesy")} />
+            <Choice
+              label={t("modeInPerson")}
+              desc={t("modeInPersonDesc")}
+              onClick={() => {
+                setMode("inperson");
+                setStep("reason");
+              }}
+            />
+            <Choice
+              label={t("modeOnline")}
+              desc={t("modeOnlineDesc")}
+              onClick={() => {
+                setMode("online");
+                setStep("gesy");
+              }}
+            />
           </div>
         ) : null}
 
@@ -215,10 +236,7 @@ export default function BookingWizard() {
               {t("gesyTitle")}
             </h2>
             <Choice label={t("gesyYes")} onClick={() => setStep("gesyBlock")} />
-            <Choice
-              label={t("gesyNo")}
-              onClick={() => setStep(ONLINE_SLUG ? "reason" : "onlineArrange")}
-            />
+            <Choice label={t("gesyNo")} onClick={() => setStep("reason")} />
           </div>
         ) : null}
 
@@ -231,20 +249,17 @@ export default function BookingWizard() {
               phone={phone}
               telHref={telHref}
             />
-            <button type="button" onClick={() => setStep("reason")} className="btn btn-secondary">
+            <button
+              type="button"
+              onClick={() => {
+                setMode("inperson");
+                setStep("reason");
+              }}
+              className="btn btn-secondary"
+            >
               {t("bookInPerson")}
             </button>
           </div>
-        ) : null}
-
-        {step === "onlineArrange" ? (
-          <CallOut
-            title={t("onlineArrangeTitle")}
-            body={t("onlineArrangeBody")}
-            callLabel={callLabel}
-            phone={phone}
-            telHref={telHref}
-          />
         ) : null}
 
         {step === "reason" ? (
@@ -254,8 +269,8 @@ export default function BookingWizard() {
             </h2>
             {REASONS.map((r) => (
               <BookOption
-                key={r.slug}
-                calLink={calLink(r.slug)}
+                key={r.key}
+                calLink={calLink(slugFor(r))}
                 label={t(r.key)}
                 minutesLabel={t("minutes", { n: r.min })}
                 onBook={close}
