@@ -23,6 +23,10 @@ export function visibleLocales(): readonly Locale[] {
  * (Footer, Contact, Treatment) and the embedded map pin, so they all resolve to
  * the clinic's Google Business place rather than a bare street address.
  */
+// The Surgery Center 3i (where procedures take place) — the doctor's Google
+// Business share link. Rendered as a link on "The Surgery Center 3i" mentions.
+export const SURGERY_CENTER_URL = "https://share.google/yNpHgVQitzuOUgcEn";
+
 export const MAP_PLACE_QUERY =
   "Δρ. Πάρις Παπακώστας – Ρινοπλαστική, Ρινοχειρουργική, Lordou Vyronos 2-Γραφείο 001, Nicosia, Lefkosia 1096, Cyprus";
 

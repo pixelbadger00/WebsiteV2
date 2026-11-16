@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { CONTACT } from "@/lib/config";
+import { CONTACT, SURGERY_CENTER_URL } from "@/lib/config";
 import CookieSettingsButton from "@/components/analytics/CookieSettingsButton";
 
 const SOCIAL_ICONS: Record<string, ReactNode> = {
@@ -42,7 +42,20 @@ export default async function Footer() {
             </span>
             {t("Meta.siteName")}
           </div>
-          <p className="max-w-[40ch] text-white/70">{t("Footer.inCyprus")}</p>
+          <p className="max-w-[40ch] text-white/70">
+            {t.rich("Footer.inCyprus", {
+              clinic: (chunks) => (
+                <a
+                  href={SURGERY_CENTER_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-white/40 underline-offset-2 hover:text-white"
+                >
+                  {chunks}
+                </a>
+              ),
+            })}
+          </p>
           <nav aria-label={t("Footer.follow")} className="mt-5 flex items-center gap-3">
             {CONTACT.socials.map((social) => (
               <a

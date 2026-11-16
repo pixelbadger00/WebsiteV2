@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { pick } from "@/lib/i18n-content";
+import { SURGERY_CENTER_URL } from "@/lib/config";
 import {
   buildAlternates,
   getGermanEnabled,
@@ -91,7 +92,21 @@ export default async function ProcedurePage({ params }: Props) {
   ];
   const steps = [
     { t: t("step1Title"), b: t("step1Body") },
-    { t: t("step2Title"), b: t("step2Body") },
+    {
+      t: t("step2Title"),
+      b: t.rich("step2Body", {
+        clinic: (chunks) => (
+          <a
+            href={SURGERY_CENTER_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline font-medium text-accent"
+          >
+            {chunks}
+          </a>
+        ),
+      }),
+    },
     { t: t("step3Title"), b: t("step3Body") },
   ];
   const related = allProcs
