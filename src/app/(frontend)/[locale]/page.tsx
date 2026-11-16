@@ -150,6 +150,15 @@ export default async function HomePage({ params }: Props) {
 
   const featured = procedures[0];
   const rest = procedures.slice(1);
+  // Rhinoplasty's featured tile shows the whole photo at full container width:
+  // size the tile to the image's own aspect ratio so object-cover fills it with
+  // no cropping (image width == container width).
+  const featIsRhino = featured?._id === "procedure.rhinoplasty";
+  const featDims = featured?.heroImage?.asset?.metadata?.dimensions;
+  const featAspect =
+    featIsRhino && featDims?.width && featDims?.height
+      ? featDims.width / featDims.height
+      : undefined;
   const procHref = (p: (typeof procedures)[number]) => {
     const slug = pick(p.slug, locale)?.current;
     return slug ? `/service/${slug}` : undefined;
@@ -288,21 +297,20 @@ export default async function HomePage({ params }: Props) {
               href={procHref(featured) ?? "/services"}
               className="proc-tile group block overflow-hidden rounded-lg"
             >
-              <div className="relative aspect-[16/11] sm:aspect-[16/9] lg:aspect-[21/9]">
+              <div
+                className={
+                  featAspect
+                    ? "relative w-full"
+                    : "relative aspect-[16/11] sm:aspect-[16/9] lg:aspect-[21/9]"
+                }
+                style={featAspect ? { aspectRatio: String(featAspect) } : undefined}
+              >
                 <ImageBox
                   image={featured.heroImage}
                   alt=""
                   sizes="(max-width: 1024px) 100vw, 1200px"
                   className="h-full w-full"
                   priority
-                  // Rhinoplasty's portrait photo (6-53): show the whole image
-                  // (zoomed out to fit) rather than a cropped cover.
-                  objectFit={
-                    featured._id === "procedure.rhinoplasty" ? "contain" : "cover"
-                  }
-                  objectPosition={
-                    featured._id === "procedure.rhinoplasty" ? "50% 65%" : undefined
-                  }
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-7 text-white md:p-11 lg:max-w-[70%]">
