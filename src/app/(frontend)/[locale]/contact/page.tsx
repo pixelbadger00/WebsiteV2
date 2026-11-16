@@ -172,6 +172,10 @@ export default async function ContactPage({ params }: Props) {
                           {t("directions")} →
                         </a>
                       ) : null}
+                      {/* Parking note (doctor feedback): municipal car park opposite. */}
+                      <p className="mt-2 text-[0.9rem] leading-relaxed text-slate-500">
+                        {t("parking")}
+                      </p>
                     </dd>
                   </div>
                 </div>

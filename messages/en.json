@@ -55,6 +55,7 @@
     "email": "Email",
     "address": "Clinic",
     "directions": "Get directions",
+    "parking": "Kosti Palama municipal car park, opposite the clinic.",
     "hours": "Opening hours"
   },
   "Blog": {
@@ -113,7 +114,7 @@
     "more": "More",
     "hours": "Hours",
     "hoursTbc": "to be confirmed",
-    "inCyprus": "Clinic and procedures located in Cyprus.",
+    "inCyprus": "The clinic is in Cyprus; procedures take place at The Surgery Center 3i.",
     "follow": "Follow",
     "privacy": "Privacy",
     "cookies": "Cookies",

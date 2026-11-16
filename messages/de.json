@@ -55,6 +55,7 @@
     "email": "E-Mail",
     "address": "Praxis",
     "directions": "Route anzeigen",
+    "parking": "Öffentlicher Parkplatz Kosti Palama, gegenüber der Praxis.",
     "hours": "Öffnungszeiten"
   },
   "Blog": {
@@ -113,7 +114,7 @@
     "more": "Mehr",
     "hours": "Öffnungszeiten",
     "hoursTbc": "wird bestätigt",
-    "inCyprus": "Praxis und Eingriffe befinden sich in Zypern.",
+    "inCyprus": "Die Praxis befindet sich in Zypern; die Eingriffe finden im The Surgery Center 3i statt.",
     "follow": "Folgen",
     "privacy": "Datenschutz",
     "cookies": "Cookies",

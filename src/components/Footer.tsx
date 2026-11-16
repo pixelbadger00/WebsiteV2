@@ -84,10 +84,14 @@ export default async function Footer() {
           <a href={`tel:${CONTACT.phone.replace(/\s/g, "")}`} data-analytics-event="click_phone" className="block py-2 text-white/80 hover:text-white">
             {CONTACT.phone}
           </a>
+          <a href={`tel:${CONTACT.phone2.replace(/\s/g, "")}`} data-analytics-event="click_phone" className="block py-2 text-white/80 hover:text-white">
+            {CONTACT.phone2}
+          </a>
           <a href={`tel:${CONTACT.mobile.replace(/\s/g, "")}`} data-analytics-event="click_phone" className="block py-2 text-white/80 hover:text-white">
             {CONTACT.mobile}
           </a>
-          <a href={`mailto:${CONTACT.email}`} data-analytics-event="click_email" className="block py-2 break-all text-white/80 hover:text-white">
+          {/* Email kept on a single line (no mid-address wrap) per doctor feedback. */}
+          <a href={`mailto:${CONTACT.email}`} data-analytics-event="click_email" className="block py-2 whitespace-nowrap text-white/80 hover:text-white">
             {CONTACT.email}
           </a>
         </div>
