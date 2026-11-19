@@ -33,8 +33,11 @@
   --text-display: clamp(2.4rem, 1.6rem + 3.4vw, 4rem);
   /* Smaller display size for German only: its long compound words
      (Nasenchirurgie, ästhetische, Facharzt) need a smaller size to stay whole
-     on each line instead of hyphenating. Used by the German hero <h1>. */
-  --text-display-de: clamp(1.95rem, 1.35rem + 2.5vw, 3.2rem);
+     on each line instead of hyphenating. The mobile floor is kept low so the
+     long DE hero line ("Die Nase im Fokus: Funktion und Ästhetik.") fits the
+     narrow viewport instead of being clipped by the hero's overflow-hidden.
+     Used by the German hero <h1>. */
+  --text-display-de: clamp(1.6rem, 1.1rem + 2.4vw, 3.2rem);
   /* Slightly smaller display size for Greek: the longer Greek hero line
      ("…από εξειδικευμένο χειρουργό ΩΡΛ.") otherwise orphans "από" on its own
      line. Sits between the default and the German size. Used by the Greek hero <h1>. */
