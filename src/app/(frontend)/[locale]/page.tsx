@@ -262,7 +262,16 @@ export default async function HomePage({ params }: Props) {
           <Reveal>
             <p className="eyebrow">{nav("procedures")}</p>
             {pick(home?.proceduresTitle, locale) ? (
-              <h2 className="mt-3 max-w-[18ch] text-balance text-[length:var(--text-h2)]">
+              <h2
+                className={`mt-3 text-balance text-[length:var(--text-h2)] ${
+                  // German's longer words need a wider measure (and a slightly
+                  // smaller size) so the line breaks comfortably instead of
+                  // looking cramped/clipped on narrow phones.
+                  locale === "de"
+                    ? "max-w-[24ch] text-[length:var(--text-h2-de)]"
+                    : "max-w-[18ch]"
+                }`}
+              >
                 {pick(home?.proceduresTitle, locale)}
               </h2>
             ) : null}
