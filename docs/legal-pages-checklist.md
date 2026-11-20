@@ -42,18 +42,16 @@ These `[...]` passages are legally required and were left blank on purpose:
 ### Privacy Policy (`legal.privacy`)
 - [ ] **Controller legal details** — legal registration / VAT of the controller,
       and a data-protection contact if one exists.
-- [ ] **Email provider** — who hosts the mailbox that receives contact-form
-      messages (for the processors list).
 - [ ] **Retention periods** — how long enquiry / booking data is kept before
       deletion or anonymisation.
+- [x] ~~Email provider~~ — resolved: clinic uses **Google (Gmail)**, now named in
+      the processors list.
 
 ### Imprint (`legal.imprint`)
 - [ ] **Professional title origin** — country where the medical title was
       awarded. (Ties to the unconfirmed `Dr. med.` title — see `open-questions.md`.)
 - [ ] **Medical registration** — Cyprus Medical Association / Medical Council
       registration number, and the exact competent-body name.
-- [ ] **Applicable professional rules** — reference to the Cyprus laws/rules
-      governing the practice of medicine.
 - [ ] **VAT / tax** — VAT number, or a statement that the clinic is not
       VAT-registered.
 - [ ] **Professional liability insurance** — insurer name, address, and

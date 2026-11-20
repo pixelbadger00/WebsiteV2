@@ -185,9 +185,9 @@ const privacyNodes: Node[] = [
     "Unser Hosting-Anbieter (Netlify) — zum Hosten und Ausliefern der Website.",
   ),
   li(
-    "[Πάροχος email — για τη λήψη και απάντηση των μηνυμάτων σας· προς επιβεβαίωση.]",
-    "[Email provider — to receive and respond to your messages; to be confirmed.]",
-    "[E-Mail-Anbieter — zum Empfang und zur Beantwortung Ihrer Nachrichten; wird bestätigt.]",
+    "Google (Gmail) — το email του ιατρείου είναι λογαριασμός Gmail, που χρησιμοποιείται για τη λήψη και την απάντηση των μηνυμάτων σας.",
+    "Google (Gmail) — our clinic email is a Gmail account, used to receive and respond to your messages.",
+    "Google (Gmail) — die Praxis-E-Mail ist ein Gmail-Konto, über das wir Ihre Nachrichten empfangen und beantworten.",
   ),
   p(
     "Ορισμένοι από αυτούς τους παρόχους εδρεύουν εκτός του Ευρωπαϊκού Οικονομικού Χώρου, μεταξύ άλλων στις Ηνωμένες Πολιτείες. Στις περιπτώσεις αυτές, οι διαβιβάσεις προστατεύονται με κατάλληλες εγγυήσεις, όπως οι Τυποποιημένες Συμβατικές Ρήτρες της Ευρωπαϊκής Επιτροπής.",
@@ -294,11 +294,6 @@ const imprintNodes: Node[] = [
     "Αρμόδιος επαγγελματικός φορέας / εγγραφή: [Παγκύπριος Ιατρικός Σύλλογος / αριθμός εγγραφής — προς επιβεβαίωση.]",
     "Competent professional body / registration: [Cyprus Medical Association / registration number — to be confirmed.]",
     "Zuständige Berufskammer / Registrierung: [Cyprus Medical Association / Registernummer — wird bestätigt.]",
-  ),
-  li(
-    "Ισχύοντες επαγγελματικοί κανόνες: η νομοθεσία και οι επαγγελματικοί κανόνες που διέπουν την άσκηση της ιατρικής στην Κύπρο. [Παραπομπή — προς επιβεβαίωση.]",
-    "Applicable professional regulations: the laws and professional rules governing the practice of medicine in Cyprus. [Reference to be confirmed.]",
-    "Geltende berufsrechtliche Regelungen: die Gesetze und Berufsregeln, die die Ausübung der Medizin in Zypern regeln. [Fundstelle — wird bestätigt.]",
   ),
 
   h2("ΦΠΑ / Φορολογικά στοιχεία", "VAT / tax", "Umsatzsteuer / Steuer"),
