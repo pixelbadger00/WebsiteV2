@@ -38,7 +38,9 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     ".next.nosync/types/**/*.ts",
-    ".next.nosync/dev/types/**/*.ts"
+    ".next.nosync/dev/types/**/*.ts",
+    ".next-prod.nosync/types/**/*.ts",
+    ".next-prod.nosync/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

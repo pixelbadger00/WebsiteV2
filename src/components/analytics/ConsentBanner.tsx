@@ -72,6 +72,18 @@ export default function ConsentBanner() {
     return () => window.removeEventListener("consent:open", open);
   }, [configured]);
 
+  // Lock background scroll while the modal is open.
+  useEffect(() => {
+    if (!visible) {
+      return;
+    }
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [visible]);
+
   function choose(granted: boolean) {
     try {
       localStorage.setItem(STORAGE_KEY, granted ? "granted" : "denied");
@@ -90,32 +102,41 @@ export default function ConsentBanner() {
 
   return (
     <div
-      role="dialog"
-      aria-live="polite"
-      aria-label={t("title")}
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-slate-300 bg-porcelain/95 backdrop-blur pb-[env(safe-area-inset-bottom)]"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 pb-[max(1rem,env(safe-area-inset-bottom))]"
     >
-      <div className="mx-auto flex max-w-[1200px] flex-col gap-4 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-[70ch] text-[0.9rem] text-slate-600">
+      {/* Backdrop */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-ink/50 backdrop-blur-sm"
+      />
+      {/* Centered modal */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={t("title")}
+        className="relative w-full max-w-md rounded-2xl border border-slate-200 bg-porcelain p-6 shadow-2xl sm:p-8"
+      >
+        <h2 className="font-serif text-xl text-ink">{t("title")}</h2>
+        <p className="mt-3 text-[0.9rem] leading-relaxed text-slate-600">
           {t("message")}{" "}
           <Link href="/cookies" className="font-semibold text-accent hover:text-accent-700">
             {t("learnMore")}
           </Link>
         </p>
-        <div className="flex shrink-0 gap-3">
-          <button
-            type="button"
-            onClick={() => choose(false)}
-            className="inline-flex min-h-11 items-center rounded-full border border-slate-300 px-5 py-2 font-semibold text-ink hover:border-ink"
-          >
-            {t("reject")}
-          </button>
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row-reverse">
           <button
             type="button"
             onClick={() => choose(true)}
-            className="inline-flex min-h-11 items-center rounded-full bg-accent px-5 py-2 font-semibold text-white hover:bg-accent-700"
+            className="inline-flex min-h-11 flex-1 items-center justify-center rounded-full bg-accent px-5 py-2 font-semibold text-white hover:bg-accent-700"
           >
             {t("accept")}
+          </button>
+          <button
+            type="button"
+            onClick={() => choose(false)}
+            className="inline-flex min-h-11 flex-1 items-center justify-center rounded-full border border-slate-300 px-5 py-2 font-semibold text-ink hover:border-ink"
+          >
+            {t("reject")}
           </button>
         </div>
       </div>
