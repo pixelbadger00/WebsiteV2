@@ -7,7 +7,7 @@ import { pick } from "@/lib/i18n-content";
 import { fullName } from "@/lib/doctor-name";
 import { normalizeBio } from "@/lib/portable-clean";
 import { fixedPathAlternates, getGermanEnabled } from "@/lib/seo";
-import { getDoctor, getSiteSettings, getOfficeImage } from "@/sanity/queries";
+import { getDoctor, getSiteSettings, getOfficeImage, getHomePage } from "@/sanity/queries";
 import SanityImage from "@/components/SanityImage";
 import PortableContent from "@/components/PortableContent";
 import BookButton from "@/components/BookButton";
@@ -65,10 +65,11 @@ export default async function AboutDoctorPage({ params }: Props) {
   const locale = localeStr as Locale;
   const t = await getTranslations();
 
-  const [doctor, settings, portraitFallback] = await Promise.all([
+  const [doctor, settings, portraitFallback, home] = await Promise.all([
     getDoctor(),
     getSiteSettings(),
     getOfficeImage(PORTRAIT_PHOTO),
+    getHomePage(),
   ]);
 
   if (!doctor) {
@@ -87,6 +88,15 @@ export default async function AboutDoctorPage({ params }: Props) {
     .map((m) => pick(m, locale))
     .filter((v): v is string => Boolean(v));
   const registrations = (doctor.registrationNumbers ?? []).filter(Boolean);
+  const timeline = (doctor.timeline ?? []).filter(
+    (item) => pick(item.year, locale) && pick(item.label, locale),
+  );
+
+  const phone = settings?.contact?.phone;
+  const phoneHref = phone ? phone.replace(/\s+/g, "") : undefined;
+  const address = pick(settings?.address, locale);
+  const ctaTitle = pick(home?.closingCtaTitle, locale);
+  const ctaBody = pick(home?.closingCtaBody, locale);
 
   return (
     <>
@@ -129,10 +139,36 @@ export default async function AboutDoctorPage({ params }: Props) {
         </div>
       </section>
 
+      {/* Training & career timeline — moved to the top, on a clean white band
+          (year + label; same spine style as home). */}
+      {timeline.length > 0 ? (
+        <section className="bg-white">
+          <Reveal className="mx-auto max-w-[760px] px-6 pt-14 pb-8 md:pt-16 md:pb-10">
+            <h2 className="eyebrow mb-5">{t("About.career")}</h2>
+            <ul className="border-t border-line pt-6">
+              {timeline.map((item, i) => (
+                <li key={i} className="grid grid-cols-[6rem_1fr] items-baseline sm:grid-cols-[7rem_1fr]">
+                  <span className="whitespace-nowrap font-serif text-[1rem] font-semibold tabular-nums text-accent">
+                    {pick(item.year, locale)}
+                  </span>
+                  <span
+                    className={`border-l border-line pl-5 text-[0.98rem] leading-snug text-slate-600 ${
+                      i < timeline.length - 1 ? "pb-5" : ""
+                    }`}
+                  >
+                    {pick(item.label, locale)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </section>
+      ) : null}
+
       {/* Biography */}
       {bio ? (
         <section className="bg-surface">
-          <Reveal className="mx-auto max-w-[760px] px-6 py-14 md:py-20">
+          <Reveal className="mx-auto max-w-[760px] px-6 pt-8 pb-14 md:pt-10 md:pb-20">
             <PortableContent value={bio} />
           </Reveal>
         </section>
@@ -173,17 +209,42 @@ export default async function AboutDoctorPage({ params }: Props) {
         </section>
       ) : null}
 
-      {/* CTA */}
-      <section className="bg-surface">
-        <div className="mx-auto max-w-[1200px] px-6 pb-16">
-          <Reveal className="flex flex-col items-center gap-4 rounded-lg border border-line bg-porcelain px-6 py-10 text-center sm:flex-row sm:justify-center">
-            <BookButton className="btn btn-primary">{t("Cta.book")}</BookButton>
-            <Link href="/contact" className="btn btn-secondary">
-              {t("Nav.contact")}
-            </Link>
+      {/* Closing CTA — invitation + contact cluster (mirrors the home design:
+          dark accent band, title/body left, Book + Call + address right). */}
+      {ctaTitle ? (
+        <section className="bg-accent text-white">
+          <Reveal className="mx-auto flex max-w-[1280px] flex-col justify-center gap-10 px-6 py-20 md:grid md:grid-cols-[1.1fr_0.9fr] md:items-center md:gap-16 md:px-10 md:py-24">
+            <div>
+              <h2 className="max-w-[20ch] text-[length:var(--text-h2)] text-white">
+                {ctaTitle}
+              </h2>
+              {ctaBody ? (
+                <p className="mt-4 max-w-[52ch] text-white/85">{ctaBody}</p>
+              ) : null}
+            </div>
+            <div className="flex flex-col items-start gap-6 md:items-end">
+              <BookButton className="btn btn-light">{t("Cta.book")}</BookButton>
+              {phoneHref ? (
+                <div className="md:text-right">
+                  <p className="eyebrow-light">{t("Cta.call")}</p>
+                  <a
+                    href={`tel:${phoneHref}`}
+                    data-analytics-event="click_phone"
+                    className="link-underline font-serif text-[1.35rem] text-white"
+                  >
+                    {phone}
+                  </a>
+                </div>
+              ) : null}
+              {address ? (
+                <p className="max-w-[32ch] whitespace-pre-line text-[0.92rem] leading-relaxed text-white/70 md:text-right">
+                  {address}
+                </p>
+              ) : null}
+            </div>
           </Reveal>
-        </div>
-      </section>
+        </section>
+      ) : null}
     </>
   );
 }

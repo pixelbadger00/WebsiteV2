@@ -144,6 +144,28 @@ export default async function Footer() {
             <CookieSettingsButton className="inline-block py-1.5 hover:text-white" />
           </span>
         </div>
+
+        {/* Agency credit — Clovo Solutions (logo + link, like liva-studio.com). */}
+        <div className="flex justify-center pt-1 md:col-span-full">
+          <a
+            href="https://clovo-solutions.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[0.78rem] text-white/45 transition hover:text-white/80"
+          >
+            <span>Created by</span>
+            <Image
+              src="/brand/clovo.svg"
+              alt=""
+              aria-hidden
+              width={16}
+              height={16}
+              unoptimized
+              className="size-4"
+            />
+            <span>Clovo Solutions</span>
+          </a>
+        </div>
       </div>
     </footer>
   );

@@ -32,12 +32,10 @@ export const MAP_PLACE_QUERY =
 
 export const CONTACT = {
   phone: "+357 22 730269",
-  // Clinic / secretariat line added per the doctor's Nov-2026 feedback. NOTE:
-  // there are now two landlines (22 730269 + 22 430658) — confirm with the
-  // doctor whether both should show or one replaces the other.
+  // Second clinic / secretariat landline (doctor's Nov-2026 feedback). Confirmed
+  // 2026-11-20: both landlines show, phone2 after phone, everywhere numbers appear.
   phone2: "+357 22 430658",
   mobile: "+357 99 623821",
-  whatsapp: "35799623821",
   email: "dr.paris.papakostas@gmail.com",
   addressLines: ["Lordou Vyronos 2-Γραφείο 001", "Nicosia, Lefkosia 1096, Cyprus"],
   mapUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_PLACE_QUERY)}`,

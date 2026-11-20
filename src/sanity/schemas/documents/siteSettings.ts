@@ -29,8 +29,13 @@ export const siteSettings = defineType({
       group: "contact",
       fields: [
         defineField({ name: "phone", title: "Phone", type: "string" }),
+        defineField({
+          name: "phone2",
+          title: "Phone (secondary)",
+          type: "string",
+          description: "Second clinic / secretariat landline, shown after the main phone.",
+        }),
         defineField({ name: "mobile", title: "Mobile", type: "string" }),
-        defineField({ name: "whatsapp", title: "WhatsApp number (digits only)", type: "string" }),
         defineField({ name: "email", title: "Email", type: "string" }),
       ],
     }),

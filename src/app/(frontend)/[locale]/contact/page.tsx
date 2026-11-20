@@ -15,7 +15,6 @@ type Props = { params: Promise<{ locale: string }> };
 // Outline icons (heroicons) for the contact detail rows.
 const DETAIL_ICONS: Record<string, ReactNode> = {
   call: <path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />,
-  whatsapp: <path d="M20.25 12c0 4.556-4.03 8.25-9 8.25a9.76 9.76 0 0 1-2.555-.337 5.972 5.972 0 0 1-2.941.572 5.98 5.98 0 0 0 .894-2.028c.09-.457-.133-.901-.467-1.226C3.9 15.77 3 13.98 3 12c0-4.556 4.03-8.25 9-8.25s8.25 3.694 8.25 8.25Z" />,
   email: <path d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />,
   address: (
     <>
@@ -100,7 +99,7 @@ export default async function ContactPage({ params }: Props) {
             <h2 className="text-[clamp(1.4rem,2.5vw,1.9rem)]">{t("detailsTitle")}</h2>
 
             <dl className="mt-7 divide-y divide-line">
-              {contact?.phone || contact?.mobile ? (
+              {contact?.phone || contact?.phone2 || contact?.mobile ? (
                 <div className="flex items-start gap-4 py-4 first:pt-0">
                   <DetailIcon name="call" />
                   <div className="min-w-0">
@@ -111,31 +110,16 @@ export default async function ContactPage({ params }: Props) {
                           {contact.phone}
                         </a>
                       ) : null}
+                      {contact?.phone2 ? (
+                        <a href={telHref(contact.phone2)} data-analytics-event="click_phone" className="block py-0.5 text-ink hover:text-accent">
+                          {contact.phone2}
+                        </a>
+                      ) : null}
                       {contact?.mobile ? (
                         <a href={telHref(contact.mobile)} data-analytics-event="click_phone" className="block py-0.5 text-ink hover:text-accent">
                           {contact.mobile}
                         </a>
                       ) : null}
-                    </dd>
-                  </div>
-                </div>
-              ) : null}
-
-              {contact?.whatsapp ? (
-                <div className="flex items-start gap-4 py-4 first:pt-0">
-                  <DetailIcon name="whatsapp" />
-                  <div className="min-w-0">
-                    <dt className="eyebrow">{t("whatsapp")}</dt>
-                    <dd className="mt-0.5">
-                      <a
-                        href={`https://wa.me/${contact.whatsapp}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-analytics-event="click_whatsapp"
-                        className="inline-block py-0.5 text-ink hover:text-accent"
-                      >
-                        +{contact.whatsapp}
-                      </a>
                     </dd>
                   </div>
                 </div>

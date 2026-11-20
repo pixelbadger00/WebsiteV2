@@ -6,7 +6,7 @@ import { CONTACT } from "@/lib/config";
 import BookButton from "./BookButton";
 import { useMobileUI } from "./mobile/MobileUIProvider";
 
-// Sticky bottom bar on mobile: click-to-call, WhatsApp, booking. Appears only
+// Sticky bottom bar on mobile: click-to-call + booking. Appears only
 // after the user scrolls past the hero (so the hero CTA isn't doubled) and
 // hides while the menu is open.
 export default function MobileActions() {

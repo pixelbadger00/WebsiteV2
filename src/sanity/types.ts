@@ -108,8 +108,8 @@ export type SiteSettings = {
   tagline?: Localized<string>;
   contact?: {
     phone?: string;
+    phone2?: string;
     mobile?: string;
-    whatsapp?: string;
     email?: string;
   };
   address?: Localized<string>;
