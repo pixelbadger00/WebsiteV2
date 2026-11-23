@@ -12,7 +12,7 @@ export const procedure = defineType({
   ],
   fields: [
     defineField({ name: "name", title: "Name", type: "localeString", group: "content" }),
-    defineField({ name: "slug", title: "Slug", type: "localeSlug", group: "content" }),
+    defineField({ name: "slug", title: "Web address", type: "localeSlug", group: "content" }),
     defineField({
       name: "order",
       title: "Order",

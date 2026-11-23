@@ -20,7 +20,7 @@ export const legalPage = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({ name: "title", title: "Title", type: "localeString" }),
-    defineField({ name: "slug", title: "Slug", type: "localeSlug" }),
+    defineField({ name: "slug", title: "Web address", type: "localeSlug" }),
     defineField({ name: "body", title: "Body", type: "localeBlockContent" }),
     defineField({ name: "seo", title: "SEO", type: "seo" }),
   ],

@@ -6,7 +6,7 @@ export const post = defineType({
   type: "document",
   fields: [
     defineField({ name: "title", title: "Title", type: "localeString" }),
-    defineField({ name: "slug", title: "Slug", type: "localeSlug" }),
+    defineField({ name: "slug", title: "Web address", type: "localeSlug" }),
     defineField({ name: "excerpt", title: "Excerpt", type: "localeText" }),
     defineField({ name: "coverImage", title: "Cover image", type: "image", options: { hotspot: true } }),
     defineField({ name: "body", title: "Body", type: "localeBlockContent" }),
