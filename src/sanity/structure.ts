@@ -17,7 +17,6 @@ const SURFACED_PAGE_IDS = [
   "page.faq",
   "page.contact",
   "page.treatment-in-cyprus",
-  "page.instructions",
 ];
 const SURFACED_PAGE_ID_SET = [
   ...SURFACED_PAGE_IDS,
@@ -113,11 +112,6 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem("testimonial").title("Αξιολογήσεις"),
 
       S.documentTypeListItem("legalPage").title("Νομικές σελίδες"),
-
-      S.listItem()
-        .title("Μετεγχειρητικές Οδηγίες")
-        .id("page.instructions")
-        .child(S.document().schemaType("page").documentId("page.instructions")),
 
       // Any other `page` document (none surfaced above).
       S.listItem()
