@@ -10,42 +10,30 @@ import {
   breadcrumbJsonLd,
   faqPageJsonLd,
 } from "@/lib/seo";
-import { getFaqPage } from "@/sanity/queries";
+import { getFaqPage, getFaqs } from "@/sanity/queries";
+import type { PortableText } from "@/sanity/types";
 import PortableContent from "@/components/PortableContent";
 import JsonLd from "@/components/JsonLd";
 import { Stagger, StaggerItem } from "@/components/motion/Stagger";
 
 type Props = { params: Promise<{ locale: string }> };
-type QA = { question: string; answer: string };
 
-const normalize = (s: string) => s.replace(/\s+/g, " ").trim();
-
-// The migrated FAQ body stores one Q&A per block: the first non-empty span is
-// the (numbered) question, the rest is the answer. Parse into clean pairs.
-function parseFaq(blocks: unknown): QA[] {
+// Plain-text of a Portable Text answer, for the FAQPage JSON-LD `text` field.
+function toPlainText(blocks: PortableText | undefined): string {
   if (!Array.isArray(blocks)) {
-    return [];
+    return "";
   }
-  const out: QA[] = [];
-  for (const b of blocks) {
-    const block = b as { _type?: string; children?: { text?: string }[] };
-    if (block._type !== "block") {
-      continue;
-    }
-    const parts = (block.children ?? [])
-      .map((c) => normalize(c.text ?? ""))
-      .filter(Boolean);
-    const first = parts[0];
-    if (!first || parts.length < 2) {
-      continue;
-    }
-    const question = first.replace(/^\s*\d+[.)]\s*/, "").trim();
-    const answer = parts.slice(1).join(" ").trim();
-    if (question && answer) {
-      out.push({ question, answer });
-    }
-  }
-  return out;
+  return blocks
+    .map((b) => {
+      const block = b as { _type?: string; children?: { text?: string }[] };
+      if (block._type !== "block") {
+        return "";
+      }
+      return (block.children ?? []).map((c) => c.text ?? "").join("");
+    })
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -71,25 +59,48 @@ export default async function FaqPage({ params }: Props) {
   const locale = localeStr as Locale;
   const nav = await getTranslations("Nav");
 
-  const page = await getFaqPage();
+  const [page, faqs] = await Promise.all([getFaqPage(), getFaqs()]);
   const title = pick(page?.title, locale) ?? nav("faq");
-  const items = parseFaq(pick(page?.body, locale));
+  const intro = pick(page?.body, locale);
+
+  // Keep only questions with both a question and an answer in this locale
+  // (pick() enforces "no Greek fallback on /en", so an untranslated item drops).
+  const items = faqs
+    .map((f) => ({
+      id: f._id,
+      question: pick(f.question, locale),
+      answer: pick(f.answer, locale),
+    }))
+    .filter(
+      (it): it is { id: string; question: string; answer: PortableText } =>
+        Boolean(it.question) && Array.isArray(it.answer) && it.answer.length > 0,
+    );
 
   const breadcrumbLd = breadcrumbJsonLd([
     { name: title, url: absoluteUrl(locale, "/faq") },
   ]);
+  const jsonLdItems = items.map((it) => ({
+    question: it.question,
+    answer: toPlainText(it.answer),
+  }));
 
   return (
     <section className="mx-auto max-w-[760px] px-6 py-14 md:py-20">
       <JsonLd data={breadcrumbLd} />
-      {items.length > 0 ? <JsonLd data={faqPageJsonLd(items)} /> : null}
+      {jsonLdItems.length > 0 ? <JsonLd data={faqPageJsonLd(jsonLdItems)} /> : null}
 
       <h1 className="text-[clamp(2rem,4.5vw,3rem)]">{title}</h1>
 
+      {intro ? (
+        <div className="mt-6 text-slate-600">
+          <PortableContent value={intro} />
+        </div>
+      ) : null}
+
       {items.length > 0 ? (
         <Stagger className="mt-8" step={0.05}>
-          {items.map((item, i) => (
-            <StaggerItem key={i}>
+          {items.map((item) => (
+            <StaggerItem key={item.id}>
               <details className="border-b border-slate-300">
                 <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 font-semibold">
                   {item.question}
@@ -97,16 +108,13 @@ export default async function FaqPage({ params }: Props) {
                     +
                   </span>
                 </summary>
-                <p className="pb-4 leading-[1.7] text-slate-600">{item.answer}</p>
+                <div className="pb-4 leading-[1.7] text-slate-600">
+                  <PortableContent value={item.answer} />
+                </div>
               </details>
             </StaggerItem>
           ))}
         </Stagger>
-      ) : pick(page?.body, locale) ? (
-        // Fallback: render the raw body if the Q&A couldn't be parsed.
-        <div className="mt-8">
-          <PortableContent value={pick(page?.body, locale)} />
-        </div>
       ) : null}
 
       <div className="mt-8">

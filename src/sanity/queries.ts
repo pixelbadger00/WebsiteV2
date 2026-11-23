@@ -9,6 +9,7 @@ import type {
   Post,
   LegalPage,
   SanityImage,
+  Faq,
 } from "./types";
 
 const IMAGE = `{ alt, hotspot, asset->{ url, metadata{ dimensions{ width, height }, lqip } } }`;
@@ -160,7 +161,7 @@ export function getLegalPage(kind: "privacy" | "cookies" | "imprint") {
   );
 }
 
-// ── FAQ page (page.faq document; body holds the Q&A content) ──
+// ── FAQ page settings (page.faq: title + SEO + optional intro body) ──
 export function getFaqPage() {
   return sanityFetch<Page | null>(
     `*[_type=="page" && _id=="page.faq"][0]{
@@ -168,6 +169,17 @@ export function getFaqPage() {
     }`,
     {},
     ["page"],
+  );
+}
+
+// ── FAQ questions (standalone `faq` documents, one per Q&A, ordered) ──
+export function getFaqs() {
+  return sanityFetch<Faq[]>(
+    `*[_type=="faq"] | order(order asc, _createdAt asc){
+      _id, question, answer, category, order
+    }`,
+    {},
+    ["faq"],
   );
 }
 

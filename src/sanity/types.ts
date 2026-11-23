@@ -27,6 +27,15 @@ export type FaqItem = {
   answer?: Localized<string>;
 };
 
+// Standalone FAQ document (the /faq page). Answer is rich text (localeBlockContent).
+export type Faq = {
+  _id: string;
+  question?: Localized<string>;
+  answer?: Localized<PortableText>;
+  category?: string;
+  order?: number;
+};
+
 export type BeforeAfterPair = {
   before?: SanityImage;
   after?: SanityImage;

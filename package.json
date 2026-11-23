@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "migrate:dry": "tsx scripts/migrate-wp.ts",
+  "migrate:faq": "node --env-file=.env.local --import tsx scripts/migrate-faq-to-docs.ts",
     "migrate": "node --env-file=.env.local --import tsx scripts/migrate-wp.ts",
     "seed:home": "node --env-file=.env.local --import tsx scripts/seed-home.ts",
     "seed:legal": "node --env-file=.env.local --import tsx scripts/seed-legal.ts",
