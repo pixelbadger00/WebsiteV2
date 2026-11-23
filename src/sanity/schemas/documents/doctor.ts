@@ -31,7 +31,8 @@ export const doctor = defineType({
       name: "timeline",
       title: "Training & career timeline",
       type: "array",
-      description: "Confirmed milestones only (year + label). No unverified claims.",
+      description:
+        "The “Training & career” milestones shown on the home page and the doctor's page. Add, edit or reorder entries here (year + label, per language). Confirmed milestones only — no unverified claims.",
       of: [
         {
           type: "object",
@@ -39,7 +40,16 @@ export const doctor = defineType({
             defineField({ name: "year", title: "Year", type: "localeString" }),
             defineField({ name: "label", title: "Label", type: "localeString" }),
           ],
-          preview: { select: { title: "year", subtitle: "label.en" } },
+          // year/label are localized objects, so select each locale explicitly
+          // and build a readable row title (otherwise rows render blank).
+          preview: {
+            select: { yEl: "year.el", yEn: "year.en", lEl: "label.el", lEn: "label.en" },
+            prepare({ yEl, yEn, lEl, lEn }) {
+              const year = yEl || yEn || "";
+              const label = lEl || lEn || "(no label)";
+              return { title: [year, label].filter(Boolean).join(" — "), subtitle: lEn };
+            },
+          },
         },
       ],
     }),
