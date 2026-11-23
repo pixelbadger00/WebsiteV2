@@ -1,13 +1,18 @@
 import { type StructureResolver } from "sanity/structure";
 
-// Desk structure. Section labels mirror the site header navigation (in Greek,
-// as the client reviews the Studio in Greek): Επεμβάσεις, Βιογραφικό, Άρθρα,
-// Συχνές Ερωτήσεις, Επικοινωνία. Each live page/section is surfaced exactly
-// once — the old generic "Pages" list duplicated FAQ/Contact and mixed real
-// pages with settings, which editors found confusing.
+// Desk structure. The TOP group mirrors the public site header navigation
+// exactly (in Greek, as the client reviews the Studio in Greek):
+//   Επεμβάσεις · Βιογραφικό · Άρθρα · FAQ · Επικοινωνία
+// Everything that is NOT in the public navbar (home, testimonials, legal,
+// site settings, other pages) sits below a divider as editable content.
+//
+// Note: there is no standalone "Θεραπεία στην Κύπρο" page — that content is the
+// body of the /services (Επεμβάσεις) page (src/.../services/page.tsx reads the
+// `page.treatment-in-cyprus` doc). So it is edited INSIDE "Επεμβάσεις", not as
+// its own top-level section.
 
-// Page documents that are surfaced individually below (so they don't also
-// appear in the "Other pages" catch-all). Both published and draft ids.
+// Page documents surfaced individually (nested or top-level) so they don't also
+// appear in the "Άλλες σελίδες" catch-all. Both published and draft ids.
 const SURFACED_PAGE_IDS = [
   "page.faq",
   "page.contact",
@@ -23,14 +28,33 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title("Περιεχόμενο")
     .items([
-      // ── Αρχική (Home) ──
-      S.listItem()
-        .title("Αρχική σελίδα")
-        .id("homePage")
-        .child(S.document().schemaType("homePage").documentId("homePage")),
-
       // ── Επεμβάσεις (Procedures) ──
-      S.documentTypeListItem("procedure").title("Επεμβάσεις"),
+      // Page content (the /services page body) + the list of procedures.
+      S.listItem()
+        .title("Επεμβάσεις")
+        .id("procedures")
+        .child(
+          S.list()
+            .title("Επεμβάσεις")
+            .items([
+              S.listItem()
+                .title("Περιεχόμενο σελίδας")
+                .id("page.treatment-in-cyprus")
+                .child(
+                  S.document()
+                    .schemaType("page")
+                    .documentId("page.treatment-in-cyprus"),
+                ),
+              S.listItem()
+                .title("Λίστα επεμβάσεων")
+                .id("procedureList")
+                .child(
+                  S.documentTypeList("procedure")
+                    .title("Επεμβάσεις")
+                    .defaultOrdering([{ field: "order", direction: "asc" }]),
+                ),
+            ]),
+        ),
 
       // ── Βιογραφικό (About the doctor) ──
       S.listItem()
@@ -43,28 +67,17 @@ export const structure: StructureResolver = (S) =>
             .filter('_type == "doctor"'),
         ),
 
-      // ── Θεραπεία στην Κύπρο (Treatment in Cyprus) ──
-      S.listItem()
-        .title("Θεραπεία στην Κύπρο")
-        .id("page.treatment-in-cyprus")
-        .child(
-          S.document()
-            .schemaType("page")
-            .documentId("page.treatment-in-cyprus"),
-        ),
-
       // ── Άρθρα (Blog) ──
       S.documentTypeListItem("post").title("Άρθρα"),
 
-      // ── Συχνές Ερωτήσεις (FAQ) ──
-      // Page settings (title + SEO + optional intro) and the individually
-      // editable questions, grouped under one menu item.
+      // ── FAQ (Συχνές Ερωτήσεις) ──
+      // Page settings (title + SEO + optional intro) + the editable questions.
       S.listItem()
-        .title("Συχνές Ερωτήσεις (FAQ)")
+        .title("FAQ")
         .id("faqSection")
         .child(
           S.list()
-            .title("Συχνές Ερωτήσεις")
+            .title("FAQ")
             .items([
               S.listItem()
                 .title("Ρυθμίσεις σελίδας")
@@ -91,19 +104,22 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
-      // ── Μετεγχειρητικές Οδηγίες (Post-op instructions) ──
+      // ── Site-wide content NOT in the public navbar ──
+      S.listItem()
+        .title("Αρχική σελίδα")
+        .id("homePage")
+        .child(S.document().schemaType("homePage").documentId("homePage")),
+
+      S.documentTypeListItem("testimonial").title("Αξιολογήσεις"),
+
+      S.documentTypeListItem("legalPage").title("Νομικές σελίδες"),
+
       S.listItem()
         .title("Μετεγχειρητικές Οδηγίες")
         .id("page.instructions")
         .child(S.document().schemaType("page").documentId("page.instructions")),
 
-      // ── Αξιολογήσεις (Testimonials) ──
-      S.documentTypeListItem("testimonial").title("Αξιολογήσεις"),
-
-      // ── Νομικές σελίδες (Legal) ──
-      S.documentTypeListItem("legalPage").title("Νομικές σελίδες"),
-
-      // ── Άλλες σελίδες (any other `page` document) ──
+      // Any other `page` document (none surfaced above).
       S.listItem()
         .title("Άλλες σελίδες")
         .id("otherPages")
