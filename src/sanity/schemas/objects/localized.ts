@@ -41,10 +41,10 @@ export const localeBlockContent = defineType({
 
 export const localeSlug = defineType({
   name: "localeSlug",
-  title: "Localized slug",
+  title: "Web address (one per language)",
   type: "object",
   description:
-    "URL slug per locale. Keep existing WordPress slugs where possible (see docs/redirects.csv).",
+    "The end of this page's web address, e.g. “…/rhinoplasty”. Use lowercase words joined by hyphens — no spaces, accents or capital letters. Tip: once a page is live, try not to change this, because any existing links to the old address would stop working.",
   options: { collapsible: true, collapsed: false },
   fields: LOCALES.map((l) =>
     defineField({ name: l.name, title: l.title, type: "slug" }),
