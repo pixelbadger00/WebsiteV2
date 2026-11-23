@@ -13,20 +13,6 @@ export const doctor = defineType({
       options: { hotspot: true },
     }),
     defineField({ name: "shortBio", title: "Short bio", type: "localeText" }),
-    defineField({ name: "bio", title: "Full biography", type: "localeBlockContent" }),
-    defineField({
-      name: "credentials",
-      title: "Credentials",
-      type: "array",
-      of: [{ type: "localeString" }],
-      description: "Qualifications, training, fellowships. Keep verifiable — no invented claims.",
-    }),
-    defineField({
-      name: "memberships",
-      title: "Memberships",
-      type: "array",
-      of: [{ type: "localeString" }],
-    }),
     defineField({
       name: "timeline",
       title: "Training & career timeline",
@@ -52,6 +38,20 @@ export const doctor = defineType({
           },
         },
       ],
+    }),
+    defineField({ name: "bio", title: "Full biography", type: "localeBlockContent" }),
+    defineField({
+      name: "credentials",
+      title: "Credentials",
+      type: "array",
+      of: [{ type: "localeString" }],
+      description: "Qualifications, training, fellowships. Keep verifiable — no invented claims.",
+    }),
+    defineField({
+      name: "memberships",
+      title: "Memberships",
+      type: "array",
+      of: [{ type: "localeString" }],
     }),
     defineField({
       name: "registrationNumbers",
