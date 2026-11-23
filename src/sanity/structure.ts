@@ -104,12 +104,31 @@ export const structure: StructureResolver = (S) =>
       S.divider(),
 
       // ── Site-wide content NOT in the public navbar ──
+      // Home page: the page content + the reviews (Αξιολογήσεις) that only
+      // appear on it, grouped together.
       S.listItem()
         .title("Αρχική σελίδα")
         .id("homePage")
-        .child(S.document().schemaType("homePage").documentId("homePage")),
-
-      S.documentTypeListItem("testimonial").title("Αξιολογήσεις"),
+        .child(
+          S.list()
+            .title("Αρχική σελίδα")
+            .items([
+              S.listItem()
+                .title("Περιεχόμενο σελίδας")
+                .id("homePageDoc")
+                .child(
+                  S.document()
+                    .schemaType("homePage")
+                    .documentId("homePage"),
+                ),
+              S.listItem()
+                .title("Αξιολογήσεις")
+                .id("testimonialList")
+                .child(
+                  S.documentTypeList("testimonial").title("Αξιολογήσεις"),
+                ),
+            ]),
+        ),
 
       S.documentTypeListItem("legalPage").title("Νομικές σελίδες"),
 

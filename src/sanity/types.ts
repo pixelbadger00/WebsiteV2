@@ -100,11 +100,18 @@ export type HomePage = {
   heroTitle?: Localized<string>;
   heroLead?: Localized<string>;
   trustBadges?: Localized<string>[];
+  proceduresEyebrow?: Localized<string>;
   proceduresTitle?: Localized<string>;
   proceduresIntro?: Localized<string>;
   proceduresCtaLabel?: Localized<string>;
   aboutEyebrow?: Localized<string>;
   aboutCtaLabel?: Localized<string>;
+  blogEyebrow?: Localized<string>;
+  blogTitle?: Localized<string>;
+  treatmentEyebrow?: Localized<string>;
+  treatmentTitle?: Localized<string>;
+  treatmentBody?: Localized<string>;
+  treatmentCtaLabel?: Localized<string>;
   reviewsEyebrow?: Localized<string>;
   reviewsTitle?: Localized<string>;
   closingCtaTitle?: Localized<string>;

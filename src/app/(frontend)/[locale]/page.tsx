@@ -260,7 +260,7 @@ export default async function HomePage({ params }: Props) {
       <section className="mx-auto max-w-[1280px] px-6 py-16 md:px-10 md:py-24">
         <div className="grid gap-x-16 gap-y-6 border-b border-line pb-10 md:grid-cols-[1.05fr_0.95fr] md:items-end md:pb-12">
           <Reveal>
-            <p className="eyebrow">{nav("procedures")}</p>
+            <p className="eyebrow">{pick(home?.proceduresEyebrow, locale) ?? nav("procedures")}</p>
             {pick(home?.proceduresTitle, locale) ? (
               <h2
                 className={`mt-3 text-balance text-[length:var(--text-h2)] ${
@@ -286,7 +286,7 @@ export default async function HomePage({ params }: Props) {
               href="/services"
               className="link-underline mt-5 inline-block font-semibold text-accent"
             >
-              {proc("viewAll")}
+              {pick(home?.proceduresCtaLabel, locale) ?? proc("viewAll")}
             </Link>
           </Reveal>
         </div>
@@ -449,8 +449,10 @@ export default async function HomePage({ params }: Props) {
           <div className="mx-auto max-w-[1280px] px-6 py-16 md:px-10 md:py-24">
             <div className="grid gap-x-16 gap-y-5 border-b border-line pb-8 md:grid-cols-[1fr_auto] md:items-end md:pb-10">
               <Reveal>
-                <p className="eyebrow">{homeT("newsEyebrow")}</p>
-                <h2 className="mt-3 text-[length:var(--text-h2)]">{homeT("newsTitle")}</h2>
+                <p className="eyebrow">{pick(home?.blogEyebrow, locale) ?? homeT("newsEyebrow")}</p>
+                <h2 className="mt-3 text-[length:var(--text-h2)]">
+                  {pick(home?.blogTitle, locale) ?? homeT("newsTitle")}
+                </h2>
               </Reveal>
               <Reveal className="md:pb-1">
                 <Link
@@ -514,15 +516,15 @@ export default async function HomePage({ params }: Props) {
       <section className="bg-accent-50">
         <div className="mx-auto grid max-w-[1280px] items-center gap-10 px-6 py-16 md:px-10 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           <Reveal>
-            <p className="eyebrow">{nav("treatment")}</p>
+            <p className="eyebrow">{pick(home?.treatmentEyebrow, locale) ?? nav("treatment")}</p>
             <h2 className="mt-3 max-w-[18ch] text-[length:var(--text-h2)]">
-              {homeT("treatmentTitle")}
+              {pick(home?.treatmentTitle, locale) ?? homeT("treatmentTitle")}
             </h2>
             <p className="mt-5 max-w-[52ch] text-[1.05rem] text-slate-600">
-              {homeT("treatmentBody")}
+              {pick(home?.treatmentBody, locale) ?? homeT("treatmentBody")}
             </p>
             <BookButton className="btn btn-primary mt-8">
-              {homeT("treatmentCta")}
+              {pick(home?.treatmentCtaLabel, locale) ?? homeT("treatmentCta")}
             </BookButton>
           </Reveal>
           <RevealImage className="relative aspect-[4/3] overflow-hidden rounded-card bg-slate-900">

@@ -13,6 +13,8 @@ export const homePage = defineType({
     { name: "hero", title: "Hero", default: true },
     { name: "procedures", title: "Procedures section" },
     { name: "about", title: "About section" },
+    { name: "blog", title: "Articles section" },
+    { name: "treatment", title: "Treatment in Cyprus section" },
     { name: "reviews", title: "Reviews section" },
     { name: "cta", title: "Closing CTA" },
   ],
@@ -58,6 +60,13 @@ export const homePage = defineType({
 
     // ── Procedures section ──
     defineField({
+      name: "proceduresEyebrow",
+      title: "Eyebrow",
+      type: "localeString",
+      group: "procedures",
+      description: "Small label above the section title (e.g. “Επεμβάσεις”).",
+    }),
+    defineField({
       name: "proceduresTitle",
       title: "Section title",
       type: "localeString",
@@ -71,7 +80,7 @@ export const homePage = defineType({
     }),
     defineField({
       name: "proceduresCtaLabel",
-      title: "CTA label (to procedures)",
+      title: "Link label (to all procedures)",
       type: "localeString",
       group: "procedures",
     }),
@@ -88,6 +97,51 @@ export const homePage = defineType({
       title: "CTA label (to doctor profile)",
       type: "localeString",
       group: "about",
+      description:
+        "The doctor's name, biography and timeline shown here are edited in “Βιογραφικό”, not on this page.",
+    }),
+
+    // ── Articles section (recent blog posts teaser) ──
+    defineField({
+      name: "blogEyebrow",
+      title: "Eyebrow",
+      type: "localeString",
+      group: "blog",
+      description: "Small label above the section title (e.g. “Ενημέρωση”).",
+    }),
+    defineField({
+      name: "blogTitle",
+      title: "Section title",
+      type: "localeString",
+      group: "blog",
+      description:
+        "The articles themselves are managed under “Άρθρα”. This is just the heading of the home-page teaser.",
+    }),
+
+    // ── Treatment in Cyprus section ──
+    defineField({
+      name: "treatmentEyebrow",
+      title: "Eyebrow",
+      type: "localeString",
+      group: "treatment",
+    }),
+    defineField({
+      name: "treatmentTitle",
+      title: "Section title",
+      type: "localeString",
+      group: "treatment",
+    }),
+    defineField({
+      name: "treatmentBody",
+      title: "Section text",
+      type: "localeText",
+      group: "treatment",
+    }),
+    defineField({
+      name: "treatmentCtaLabel",
+      title: "Button label",
+      type: "localeString",
+      group: "treatment",
     }),
 
     // ── Reviews section ──

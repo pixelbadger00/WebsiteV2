@@ -31,8 +31,10 @@ export function getHomePage() {
     `*[_type=="homePage"][0]{
       "heroImage": heroImage{ alt, hotspot, asset->{ url, metadata{ dimensions{ width, height }, lqip } } },
       heroEyebrow, heroTitle, heroLead, trustBadges,
-      proceduresTitle, proceduresIntro, proceduresCtaLabel,
+      proceduresEyebrow, proceduresTitle, proceduresIntro, proceduresCtaLabel,
       aboutEyebrow, aboutCtaLabel,
+      blogEyebrow, blogTitle,
+      treatmentEyebrow, treatmentTitle, treatmentBody, treatmentCtaLabel,
       reviewsEyebrow, reviewsTitle,
       closingCtaTitle, closingCtaBody
     }`,
